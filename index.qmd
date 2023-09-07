@@ -1,0 +1,11 @@
+# Preface {.unnumbered}
+
+::: {.callout-note style="color: blue;"}
+#### This is work in progress: Just started (about 4%).
+:::
+
+This Quarto book collects my personal notes, trials and exercises of the
+[Bayesian Statistics the Fun Way: Understanding Statistics and
+Probability With Star Wars, LEGO, and Rubber
+Ducks](https://www.amazon.de/Bayesian-Statistics-Fun-Will-Kurt/l) by
+Will Kurt [@kurt2019].
