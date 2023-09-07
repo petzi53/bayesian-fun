@@ -183,7 +183,8 @@ supports your beliefs, $P(H \mid D)$
 
 Try answering the following questions to see how well you understand
 Bayesian reasoning. The solutions can be found at [No Starch
-Press](https://nostarch.com/download/resources/Bayes_exercise_solutions_new.pdf){target="_blank"} (PDF).
+Press](https://nostarch.com/download/resources/Bayes_exercise_solutions_new.pdf){target="_blank"}
+(PDF).
 
 ::: {#exr-01-1}
 Rewrite the following statements as equations using the mathematical
@@ -213,19 +214,19 @@ $$
 P(\text{door open, window broken, laptop missing} \mid H_{hausbreaking})
 $$
 :::
-***
+
+------------------------------------------------------------------------
 
 ::: {#exr-01-3}
-
 The following scenario adds data to the previous one. Demonstrate how
 this new information changes your beliefs and come up with a second
 hypothesis to explain the data, using the notation you've learned in
-this chapter. 
+this chapter.
 
-A neighborhood child runs up to you and apologizes
-profusely for accidentally throwing a rock through your window. They
-claim that they saw the laptop and didn't want it stolen so they opened
-the front door to grab it, and your laptop is safe at their house.
+- A neighborhood child runs up to you and apologizes profusely for
+accidentally throwing a rock through your window. They claim that they
+saw the laptop and didn't want it stolen so they opened the front door
+to grab it, and your laptop is safe at their house.
 
 $$
 P(\text{door open, window broken, laptop missing, child explains} \mid H_{accident})

@@ -12,6 +12,7 @@ book:
     - index.qmd
     - 00-intro.qmd
     - 01-everyday-reasoning.qmd
+    - 02-measuring-uncertainty.qmd
     - 95-references.qmd
 
 bibliography: references.bib
