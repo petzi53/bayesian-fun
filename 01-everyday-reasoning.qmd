@@ -1,0 +1,233 @@
+# Bayesian Thinking and Everyday Reasoning
+
+```{r}
+
+```
+
+Bayesian reasoning is the formal process that we use to update our
+beliefs about the world once we've observed some data.
+
+## Reasoning About Strange Experiences
+
+::: callout-note
+Will Kurt show with an UFO example how Bayesian thinking about beliefs
+and their updates when new data come is very natural and a common sense
+procedure. This is an interesting approach I haven't thought before,
+because many Bayesian introductions are not only very complex but
+develops formulae that we are not using in the everyday world.
+:::
+
+Bayesian reasoning procedure:
+
+1.  Observe data
+2.  Build a hypothesis
+3.  Update your beliefs based on new data
+
+### Observing Data
+
+$$P(\text{bright light outside window}, \text{saucer-shaped object in sky}) = \text{very low}$$
+You would read this equation as: "The probability of observing bright
+lights outside the window and a saucer-shaped object in the sky is very
+low." In probability theory, we use a comma to separate events when
+we're looking at the combined probability of multiple events.
+
+### Holding Prior Beliefs and Conditioning Probabilities
+
+$$
+\begin{align*}
+P(\text{bright light outside window},\\ 
+\text{saucer-shaped object in sky} \mid \text{eperience on Earth}) = \text{very low}
+\end{align*}
+$$ {#eq-cond-prob} We would read this equation as: "The probability of
+observing bright lights and a saucer-shaped object in the sky, *given*
+our experience on Earth, is very low."
+
+The probability outcome is called a
+`r glossary("conditional probability")` because we are conditioning the
+probability of one event occurring on the existence of something else.
+
+**Shorter variable names for events and conditions**:
+
+-   D: all of our data
+-   X: prior belief
+
+Let
+$D = \text{bright light outside window}, \text{saucer-shaped object in sky}$
+and $X = \text{experience on Earth}$ then we can wrote @eq-cond-prob as
+$P(D \mid X) = \text{very low})$.
+
+### Conditioning on Multiple Beliefs
+
+$$
+\begin{align*}
+P(\text{bright light outside window},\\ 
+\text{saucer-shaped object in sky} \mid \\
+\text{July 4th, eperience on Earth}) = \text{low}
+\end{align*}
+$$ {#eq-cond-prob-mult-beliefs} Taking both these experiences into
+account, our conditional probability changed from "very low" to "low."
+
+### Assuming Prior Beliefs in Practice
+
+In order to explain what you saw, you need to form some kind of
+*hypothesis*---a model about how the world works that makes a
+prediction. All of our basic beliefs about the world are hypotheses.
+
+-   If you believe the Earth rotates, you predict the sun will rise and
+    set at certain times.
+-   If you believe that your favorite baseball team is the best, you
+    predict they will win more than the other teams.
+-   A scientist may hypothesize that a certain treatment will slow the
+    growth of cancer.
+-   A quantitative analyst in finance may have a model of how the market
+    will behave.
+
+$$H_{1} = \text{A UFO is in my backyard!}$$
+
+But what is this hypothesis predicting? We might ask, "If there was a
+UFO in your back yard, what would you expect to see?" And you might
+answer, "Bright lights and a saucer-shaped object." Formally we write
+this as:
+
+$$
+P(D \mid H_{1}, X) >> P(D \mid X)
+$$
+
+This equation says: "The probability of seeing bright lights and a
+saucer-shaped object in the sky, given my belief that this is a UFO and
+my prior experience, is much higher \[indicated by the double
+greater-than sign \>\>\] than just seeing bright lights and a
+saucer-shaped object in the sky without explanation."
+
+### Spotting Hypotheses in Everyday Speech
+
+-   Saying something is "surprising," for example, might be the same as
+    saying it has low-probability data based on our prior experiences.
+-   Saying something "makes sense" might indicate we have
+    high-probability data based on our prior experiences.
+
+## Gathering More Evidence and Updating Your Beliefs
+
+To collect more data, we need to make more observations. In our
+scenario, you look out your window: With new evidence, you realize it
+looks more like someone is shooting a movie nearby.
+
+**Bayesian analysis process**
+
+1.  You started with your initial hypothesis:
+    $H_{1} = \text{A UFO is in my backyard!}$.
+2.  In isolation, this hypothesis, given your experience, is extremely
+    unlikely: $P(H_{1} \mid X) = \text{very, very low}$
+3.  With new data you are going to update your belief:
+    $H_{2} = \text{A film is being made}$.
+4.  In isolation, the probability of this hypothesis is also intuitively
+    very low: $P(H_{1} \mid X) = \text{very low}$
+5.  You updated your prior belief from "very, very low" to "very low".
+
+## Comparing Hypotheses
+
+With new data you have formed an *alternate hypothesis*. Let's break
+this process down into Bayesian reasoning. Your first hypothesis,
+$H_{1}$, gave you a way to explain your data and end your confusion, but
+with your additional observations $H_{1}$ no longer explains the data
+well:
+
+You started with
+
+$$P(D \mid H_{1}, X) = \text{very, very low}$$ and updated our belief
+with
+
+$$P(D_{updated} \mid H_{2}, X) >> P(D \mid H_{1}, X)$$ We say that one
+belief is more accurate than another because it provides a better
+explanation of the world we observe. Mathematically, we express this
+idea as the ratio of the two probabilities:
+
+$$\frac{P(D_{updated} \mid H_{2}, X)}{P(D \mid H_{1}, X)}$$
+
+When this ratio is a large number, say 1,000, it means "$H_{2}$ explains
+the data 1,000 times better than $H_{1}$."
+
+## Data Informs Belief; Belief Should Not Inform Data
+
+One final point worth stressing is that the only absolute in all these
+examples is your data. Your hypotheses change, and your experience in
+the world, $X$, may be different from someone else's, but the data, $D$,
+is shared by all.
+
+**Case 1** (used throughout this chapter):
+
+$$P(D \mid H, X)$$ {#eq-data-changing-belief} "How well do my beliefs
+explain what I observe?"
+
+**Case 2** (used often in everyday thinking)
+
+$$P(H \mid D, X)$$ {#eq-ensuring-data-supports-belief}
+
+In the first case, we change our beliefs according to data we gather and
+observations we make about the world that describe it better. In the
+second case, we gather data to support our existing beliefs. Bayesian
+thinking is about changing your mind and updating how you understand the
+world. The data we observe is all that is real, so our beliefs
+ultimately need to shift until they align with the data.
+
+## Wrapping Up
+
+::: callout-important
+You should be far more concerned with data changing your beliefs
+$P(D \mid H)$ (@eq-data-changing-belief) than with ensuring data
+supports your beliefs, $P(H \mid D)$
+(@eq-ensuring-data-supports-belief).
+:::
+
+## Exercises
+
+Try answering the following questions to see how well you understand
+Bayesian reasoning. The solutions can be found at [No Starch
+Press](https://nostarch.com/download/resources/Bayes_exercise_solutions_new.pdf){target="_blank"} (PDF).
+
+::: {#exr-01-1}
+Rewrite the following statements as equations using the mathematical
+notation you learned in this chapter:
+
+-   The probability of rain is low: $P(rain) = low$
+-   The probability of rain given that it is cloudy is high:
+    $P(rain \mid cloudy) = high$
+-   The probability of you having an umbrella given it is raining is
+    much greater than the probability of you having an umbrella in
+    general:
+    $P(\text{I have umbrella} \mid \text{raining}) >> P(\text{I have umbrella})$
+:::
+
+------------------------------------------------------------------------
+
+::: {#exr-01-2}
+Organize the data you observe in the following scenario into a
+mathematical notation, using the techniques we've covered in this
+chapter. Then come up with a hypothesis to explain this data:
+
+-   You come home from work and notice that your front door is open and
+    the side window is broken. As you walk inside, you immediately
+    notice that your laptop is missing.
+
+$$
+P(\text{door open, window broken, laptop missing} \mid H_{hausbreaking})
+$$
+:::
+***
+
+::: {#exr-01-3}
+
+The following scenario adds data to the previous one. Demonstrate how
+this new information changes your beliefs and come up with a second
+hypothesis to explain the data, using the notation you've learned in
+this chapter. 
+
+A neighborhood child runs up to you and apologizes
+profusely for accidentally throwing a rock through your window. They
+claim that they saw the laptop and didn't want it stolen so they opened
+the front door to grab it, and your laptop is safe at their house.
+
+$$
+P(\text{door open, window broken, laptop missing, child explains} \mid H_{accident})
+$$
+:::
