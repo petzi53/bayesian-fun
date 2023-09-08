@@ -1,0 +1,180 @@
+---
+engine: knitr
+---
+# Logic of Uncertainty
+
+In traditional logic, there are three important operators: `NOT`, `AND` and `OR.` For example, consider this statement: If it is raining AND I am going outside, I will need an umbrella. This statement contains just one logical operator: AND. Because of this operator we know that if it’s true that it is raining, AND it is true that I am going outside, I’ll need an umbrella.
+
+However, this type of logical reasoning works well only when our facts have absolute true or false values. This chapter will explain how we can extend our three logical operators to work with probability, allowing us to reason about uncertain information the same way we can with facts in traditional logic. 
+
+## Combining Probabilities with AND
+
+### Solving a Combination of Two Probabilities
+
+Suppose we want to know the probability of getting a heads in a coin flip AND rolling a 6 on a die. We know that the probability of each of these events individually is:
+
+$$P(heads) = \frac{1}{2}, P(six) = \frac{1}{6}$$
+
+Now we want to know the probability of both of these things occurring, written as:
+
+$$P(heads, six) = ?$$
+
+### Applying the Product Rule of Probability
+
+
+***
+::: {#thm-product-rule}
+#### Product rule for combining probabilities
+
+$$P(A,B) = P(A) \times P(B)$$ {#eq-product-rule}
+:::
+***
+
+In our example:
+
+$$P(heads,six) = \frac{1}{2} \times \frac{1}{6} = \frac{1}{12}$$
+
+### Example: Calculating the Probability of Being Late
+
+Let's assume the local transit authority publishes data that tells us that 15 percent of the time the train is late, and 20 percent of the time the bus is late. Since you’ll be late only if both the bus and the train are late, we can use the product rule to solve this problem:
+
+$$P(Late) = P(Late_{train}) \times P(Late_{bus}) = 0.15 \times 0.20 = 0.03$$
+Even though there’s a pretty reasonable chance that either the bus or the train will be late, the probability that they will both be late is significantly less, at only 0.03. We can also say there is a 3 percent chance that both will be late. With this calculation done, you can be a little less stressed about being late.
+
+## Combining Probabilities with OR
+
+The probability of one event OR another event occurring is slightly more complicated because the events can either be mutually exclusive or not mutually exclusive. Events are *mutually exclusive* if one event happening implies the other possible events cannot happen.
+
+### Calculating OR for Mutually Exclusive Events
+
+The process of combining two events with OR feels logically intuitive. If you’re asked, “What is the probability of getting heads or tails on a coin toss?” you would say, “1.”, because we know that:
+
+$$P(heads) = \frac{1}{2}, P(tails) = \frac{1}{2}$$
+
+Intuitively, we might just add the probability of these events together. We know this works because heads and tails are the only possible outcomes, and the probability of all possible outcomes must equal 1. 
+
+From this we can see that, as long as events are mutually exclusive, we can simply add up all of the probabilities of each possible event to get the probability of either event happening to calculate the probability of one event OR the other.
+
+This addition rule applies only to combinations of *mutually exclusive* outcomes. In probabilistic terms, mutually exclusive means that:
+
+$$P(A) \operatorname{AND} P(B) = 0$$
+To really understand combining probabilities with OR, we need to look at the case where events are not mutually exclusive.
+
+### Using the Sum Rule for Non–Mutually Exclusive Events
+
+Given that we know that $P(heads) = 1/2$ and $P(six) = 1/6$, it might initially seem plausible that the probability of either of these events is simply $4/6$. It becomes obvious that this doesn’t work, however, when we consider the possibility of either flipping a heads (=1/2) or rolling a number less than $6$. Because $P(\text{less than six}) = 5/6$, adding these probabilities together wit $1/2$ gives us $8/6$, which is greater than $1$! Since this violates the rule that probabilities must be between $0$ and $1$, we must have made a mistake.
+
+The trouble is that flipping a heads and rolling a 6 are not mutually exclusive. As we know from earlier in the chapter, $P(heads, six) = 1/12$. Because the probability of both events happening at the same time is not $0$, we know they are, by definition, not mutually exclusive.
+
+The reason that adding our probabilities doesn’t work for non–mutually exclusive events is that doing so doubles the counting of events where both things happen. To correct our probabilities, we must add up all of our probabilities and then subtract the probability of both events occurring. 
+
+***
+::: {#thm-sum-rule}
+#### Sum Rule for Non–Mutually Exclusive Events
+
+$$P(A) \operatorname{OR} P(B) = P(A) + P(B) – P(A,B)$$ {#eq-sum-rule}
+:::
+***
+
+Using our die roll and coin toss example, the probability of rolling a number less than 6 or flipping a heads is:
+
+$$P(heads) \operatorname{OR} P(six) = P(heads) + P(six) - P(heads, six) = \frac{1}{2} + \frac{1}{6} - \frac{1}{12} = \frac{7}{12}$$
+
+### Example: Calculating the Probability of Getting a Hefty Fine
+
+Remains empty: Doesn't bring new knowledge.
+
+## Wrapping Up
+
+We've learned the logic of uncertainty by adding rules for combining probabilities with AND and OR.
+
+- **AND operator**: Use the product rule as in @eq-product-rule.
+- **OR mutually exclusive events**: Add all probabilities together.
+- **OR not mutually exclusive events**: Use the sum rule as in @eq-sum-rule.
+
+## Exercises
+
+Try answering the following questions to make sure you understand the rules of logic as they apply to probability. The solutions can be found at https://nostarch.com/learnbayes/.
+
+::: {#exr-03-1}
+What is the probability of rolling a 20 three times in a row on a 20-sided die?
+
+**Solution**:
+
+$$
+\frac{1}{20} \times \frac{1}{20} \times \frac{1}{20} = \frac{1}{8,000}
+$$
+:::
+
+::: {#exr-03-2}
+The weather report says there’s a 10 percent chance of rain tomorrow, and you forget your umbrella half the time you go out. What is the probability that you’ll be caught in the rain without an umbrella tomorrow?
+
+**Solution**:
+$$
+P(rain) = 0.1 \times P(\text{no umbrella}) = 0.5 = 0.05
+$$
+:::
+
+::: {#exr-03-3}
+Raw eggs have a 1/20,000 probability of having salmonella. If you eat two raw eggs, what is the probability you ate a raw egg with salmonella?
+
+**Solution**:
+This are not mutually exclusive events as both raw eggs could have salmonella. So @eq-sum-rule applies:
+
+$$
+\begin{align*}
+(\frac{1}{20,000} + \frac{1}{20,000}) - (\frac{1}{20,000} \times \frac{1}{20,000}) = \\
+\frac{2}{20,000} - \frac{1}{400,000,000} = \\
+\frac{40000}{400,000,000} - \frac{1}{400,000,000} = \\
+\frac{39,999}{400,000,000}
+\end{align*}
+$$
+
+::: {.callout-note}
+I had problems with the many zeros. My result was 39/400,000. I tried the calculation again with the help of R.
+
+
+```{r}
+#| label: exr-03-3
+#| attr-source: '#lst-exr-03-3 lst-cap="Exercise 3 of \"Logic of Uncertainty\" (Chapter 3)"'
+
+# disabling scientific notation
+# https://stackoverflow.com/a/27318351/7322615
+options(scipen = 999) 
+
+(1 / 2e4 + 1 / 2e4) - (1 / 2e4 * 1 / 2e4)
+
+# to compare with:
+39999 / 4e8
+# or witouth scientific notation
+options(scipen = -999) 
+39999 / 4e8
+```
+:::
+
+
+:::
+
+::: {#exr-03-4}
+What is the probability of either flipping two heads in two coin tosses or rolling three 6s in three six-sided dice rolls?
+
+**Solution**:
+
+
+$$
+\begin{align*}
+P(heads) \operatorname{AND} P(heads) = \frac{1}{2} \times \frac{1}{2} = \frac{1}{4} = P(h)\\
+P(six) \operatorname{AND} P(six) \operatorname{AND} P(six) = \frac{1}{6} \times \frac{1}{6} \times \frac{1}{6} = \frac{1}{216} = P(s)\\
+P(h) \operatorname{OR} P(s) = (\frac{1}{4} + \frac{1}{216}) - (\frac{1}{4} \times \frac{1}{216}) = \\
+\frac{55}{216} - \frac{1}{864} = \frac{219}{864} = \frac{73}{288}
+\end{align*}
+$$
+:::
+
+::: {.callout-note}
+I did not calculate percent values. But this would be sensible to get the result into the probability scale from 0 to 100%. Then it would be more surprising to see that the probability of @exr-03-4 was pretty high: a little more than 25%.
+
+
+
+
+:::

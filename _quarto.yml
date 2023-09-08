@@ -13,6 +13,8 @@ book:
     - 00-intro.qmd
     - 01-everyday-reasoning.qmd
     - 02-measuring-uncertainty.qmd
+    - 03-logic-uncertainty.qmd
+    - 04-binomial-distribution.qmd
     - 95-references.qmd
 
 bibliography: references.bib
@@ -30,7 +32,7 @@ format:
     code-overflow: scroll
     df-print: default
 
-editor: visual
+editor: source
 
 knitr:
   opts_chunk:

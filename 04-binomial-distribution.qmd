@@ -1,0 +1,191 @@
+# Creating a Binomial Probability Distribution
+
+## Structure of a Binomial Distribution
+
+A binomial distribution is used to calculate the probability of a certain number of successful outcomes, given a number of trials and the probability of the successful outcome. The “bi” in the term binomial refers to the two possible outcomes that we’re concerned with: an event happening and an event not happening. (If there are more than two outcomes, the distribution is called multinomial.)
+
+Examples for a binomial distribution are:
+
+- Flipping two heads in three coin tosses
+- Buying 1 million lottery tickets and winning at least once
+- Rolling fewer than three 20s in 10 rolls of a 20-sided die
+
+
+All binomial distributions involve three parameters:
+
+- `k` The number of outcomes we care about
+- `n` The total number of trials
+- `p` The probability of the event happening
+
+Calculating the probability of flipping two heads in three coin tosses:
+
+- $k = 2$, the number of events we care about, in this case flipping a heads
+- $n = 3$, the number times the coin is flipped
+- $p = 1/2$, the probability of flipping a heads in a coin toss
+
+***
+::: {#thm-binomial-distribution-shorthand-notation}
+#### Shorthand notation of a binomial distribution
+
+$$B(k; n, p)$$ {#eq-short-notation}
+
+:::
+***
+
+For the example of two heads in three coin tosses, we would write $B(2; 3, 1/2)$. 
+
+- `B` stands for *binomial* distribution
+- `k` is separated from the other parameters by a semicolon. This is because when we are talking about a distribution of values, we usually care about all values of $k$ for a fixed $n$ and $p$. 
+- `B(k; n, p)` denotes each value in the distribution
+- `B(n, p)` denotes the whole distribution
+
+## Understanding and Abstracting Out the Details of Our Problem
+
+We’ll continue with the example of calculating the probability of flipping two heads in three coin tosses. Since the number of possible outcomes is small, we can quickly figure out the results we care about with just pencil and paper.
+
+$$HHT, HTH, THH$$
+To start generalizing, we’ll break this problem down into smaller pieces we can solve right now, and reduce those pieces into manageable equations. As we build up the equations, we’ll put them together to create a generalized function for the binomial distribution.
+
+- Each outcome we care about will have the *same* probability. 
+- Each outcome is just a `r glossary("permutation")`, or reordering, of the others
+
+$$
+\begin{align*}
+P({heads, heads, tails}) = P({heads, tails, heads}) = P({tails, heads, heads}) = \\
+P(\text{Desired Outcome})
+\end{align*}
+$$
+
+There are three outcomes, but only one of them can possibly happen and we don’t care which. And because it’s only possible for one outcome to occur, we know that these are mutually exclusive, denoted as:
+
+$$P(\{heads, heads, tails\},\{heads, tails, heads\},\{tails, heads, heads\}) = 0$$
+This makes using the sum rule of probability easy.
+
+$$
+\begin{align*}
+P(\{heads, heads, tails\} \operatorname{OR} \{heads, tails, heads\} \operatorname{OR} \{tails, heads, heads\}) = \\
+P(\text{Desired Outcome}) + P(\text{Desired Outcome}) + P(\text{Desired Outcome}) = \\
+3 \times P(Desired Outcome)
+\end{align*}
+$$
+The value "3" is specific to this problem and therefore not generalizable. We can fix this by simply replacing "3" with a variable called $N_{outcomes}$. 
+
+***
+::: {#thm-pfm-placeholder}
+#### Solution with place holders
+
+$$B(k;n,p) = N_{outcomes} \times P(\text{Desired Outcome})$$ {#eq-pfm-placeholder}
+:::
+***
+
+Now we have to figure out two subproblems: 
+
+1. How to count the number of outcomes we care about?
+2. How to determine the probability for a single outcome?
+
+## Counting Our Outcomes with the Binomial Coefficient
+
+First we need to figure out how many outcomes there are for a given k (the outcomes we care about) and n (the number of trials). For small numbers we can simply count. But it doesn’t take much for this to become too difficult to do by hand. The solution is `r glossary("combinatorics")`.
+
+### Combinatorics: Advanced Counting with the Binomial Coefficient
+
+There is a special operation in combinatorics, called the *binomial coefficient*, that represents counting the number of ways we can select `k` from `n` — that is, selecting the outcomes we care about from the total number of trials.
+
+***
+::: {#thm-binomial-coefficient}
+#### Notation for the binomial coefficient
+
+$$\binom{n}{k}$$ {#eq-binomial-coefficient}
+:::
+***
+
+
+We read this as "n choose k". In our example we would say “in three tosses choose two heads”:
+
+$$\binom{3}{2}$$
+
+***
+::: {#thm-def-bin-coeff}
+#### Definition of the binomial coefficient operation
+
+$$\binom{n}{k} = \frac{n!}{k! \times (n-k)!}$$ {#eq-def-bin-coeff}
+:::
+***
+
+The `!` means *factorial*, which is the product of all the numbers up to and including the number before the `!` symbol, so $5! = (5 × 4 × 3 × 2 × 1)$.
+
+In R we compute the binomial coefficient for the case of flipping two heads in three tosses with the following function call:
+
+***
+```{r}
+#| label: binomial-coeff
+#| attr-source: '#lst-binomial-coeff lst-cap="**(Compute the binomial coefficient for flipping two heads in three tosses)**"'
+
+choose(3,2)
+```
+***
+
+
+
+We can now replace $N_{Outcomes}$ in @eq-pfm-placeholder with the binomial coefficient:
+
+$$B(k;n,p) = \binom{n}{k} \times P(\text{Desired Outcome})$$
+
+### Calculating the Probability of the Desired Outcome
+
+All we have left to figure out is the $P(\text{Desired Outcome})$, which is the probability of any of the possible events we care about. So far we’ve been using $P(\text{Desired Outcome})$ as a variable to help organize our solution to this problem, but now we need to figure out exactly how to calculate this value. 
+
+Let’s focus on a single case of our example of tow heads in three tosses: $HHT$. Using the product rule and negation from the previous chapter, we can describe this problem as:
+$$P(heads, heads, no heads) = P(heads, heads, 1-heads)$$
+Now we can use the product rule from @eq-product-rule:
+
+$$
+\begin{align*}
+P(heads, heads, 1-heads) = \\
+P(heads) \times P(heads) \times (1-P(heads)) = \\
+P(heads)^2 \times (1-P(heads))^1
+\end{align*}
+$$
+You can see that the exponents for $P(heads)^2$ and $1 – P(heads)^1$ are just the number of heads and the number of not heads in our scenario. These equate to `k`, the number of outcomes we care about, and `n – k`, the number of trials minus the outcomes we care about.  Puting all together:
+
+$$
+\binom{n}{k} \times P(heads)^{k} \times (1- P(heads))^{n-k}
+$$
+Generalizing for any probability, not just heads, we replace $P(heads)$ with just `p`. This gives us a *general solution* for
+
+- `k`, the number of outcomes we care about; 
+- `n`, the number of trials; and 
+- `p`, the probability of the individual outcome.
+
+
+***
+::: {#thm-pmf}
+#### Probability Mass Function -- PFM
+
+$$
+\binom{n}{k} \times p^{k} \times (1- p)^{n-k}
+$$ {#eq-pfm}
+
+:::
+***
+
+@eq-pfm is the basis of the binomial distribution. It is called a `r glossary("Probability Mass Function")` (PMF). The *mass* part of the name comes from the fact that we can use it to calculate the amount of probability for any given `k` using a fixed `n` and `p`, so this is the mass of our probability.
+
+Now that we have this equation, we can solve any problem related to outcomes of a coin toss. For example, we could calculate the probability of flipping exactly 12 heads in 24 coin tosses:
+
+$$
+B(12,24,\frac{1}{2}) = \binom{24}{12} \times (\frac{1}{2})^{12} \times (1-\frac{1}{2})^{24-12} = 0.1611803
+$$
+
+***
+
+```{r}
+#| label: calc-example
+#| attr-source: '#lst-calc-example lst-cap="**(Calculate the probability of flipping exactly 12 heads in 24 coin tosses)**"'
+
+choose(24,12) * (1 / 2)^(12) * (1 - 1/2)^(24 - 12)
+
+```
+***
+
+## STOPPED HERE!
