@@ -30,13 +30,13 @@ format:
     code-overflow: scroll
     df-print: default
 
+editor: visual
+
 knitr:
   opts_chunk:
     comment: "#>"
     R.options:
       knitr.graphics.auto_pdf: true
-
-editor: visual
 
 execute:
     freeze: auto

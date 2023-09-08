@@ -5,3 +5,5 @@ probability represents the frequency with which something happens.
 `r glossary("Bayesian statistics")`, on the other hand, is concerned
 with how probabilities represent how uncertain we are about a piece of
 information.
+
+2 + 2 = `r 2 + 2`
