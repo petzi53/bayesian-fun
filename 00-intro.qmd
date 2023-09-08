@@ -1,15 +1,7 @@
 # Introduction {.unnumbered}
 
-```{r}
-
-```
-
-
 `r glossary("Frequentist statistics")` is founded on the idea that
 probability represents the frequency with which something happens.
 `r glossary("Bayesian statistics")`, on the other hand, is concerned
 with how probabilities represent how uncertain we are about a piece of
 information.
-
-
-

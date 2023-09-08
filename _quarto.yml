@@ -51,3 +51,5 @@ language:
    callout-warning-title: "Wach out!"    # orange
    callout-important-title: "Important"  # red
    callout-caution-title: "TODO"         # yellow
+
+engine: knitr
