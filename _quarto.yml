@@ -22,7 +22,9 @@ bibliography: references.bib
 format:
   html:
     theme: cosmo
-    css: "glossary.css"
+    css:
+     - quarto.css
+     - glossary.css
     number-sections: true
     toc-depth: 5
     toc-expand: 2
@@ -31,6 +33,7 @@ format:
     code-link: true
     code-overflow: scroll
     df-print: default
+    fig-cap-location: top
 
 editor: source
 
@@ -46,6 +49,8 @@ execute:
 language:
    crossref-fig-title: "Picture"
    crossref-prp-title: "Callout"
+   crossref-cnj-title: "Experiment"
+
 
 # https://github.com/quarto-dev/quarto-cli/blob/main/src/resources/language/_language.yml
    callout-tip-title: "Resource"         # green

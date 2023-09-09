@@ -1,0 +1,11 @@
+
+.listing {
+    font-weight: bold;
+}
+
+.figure-caption {
+    font-weight: bold;
+    font-size: var(--bs-body-font-size);
+    text-align: center;
+}
+
