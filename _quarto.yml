@@ -10,11 +10,16 @@ book:
 
   chapters:
     - index.qmd
+
+    - part: "Part I: Introduction to Probability"
     - 00-intro.qmd
     - 01-everyday-reasoning.qmd
     - 02-measuring-uncertainty.qmd
     - 03-logic-uncertainty.qmd
     - 04-binomial-distribution.qmd
+    - 05-beta-distribution.qmd
+
+    - part: "Part II: Bayesian Probability and Prior Probabilities"
     - 95-references.qmd
 
 bibliography: references.bib
@@ -47,7 +52,6 @@ execute:
     freeze: auto
 
 language:
-   crossref-fig-title: "Picture"
    crossref-prp-title: "Callout"
    crossref-cnj-title: "Experiment"
 
@@ -58,5 +62,3 @@ language:
    callout-warning-title: "Wach out!"    # orange
    callout-important-title: "Important"  # red
    callout-caution-title: "TODO"         # yellow
-
-engine: knitr

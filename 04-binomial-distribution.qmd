@@ -1,4 +1,8 @@
-# Creating a Binomial Probability Distribution
+---
+engine: knitr
+---
+
+# Creating a Binomial Probability Distribution {#sec-prob-dist}
 
 ## Structure of a Binomial Distribution
 
@@ -68,6 +72,10 @@ into smaller pieces we can solve right now, and reduce those pieces into
 manageable equations. As we build up the equations, we'll put them
 together to create a generalized function for the binomial distribution.
 
+***
+::: {#thm-permuation-example}
+#### Permuation Example for the Binomial Distribution
+
 -   Each outcome we care about will have the *same* probability.
 -   Each outcome is just a `r glossary("permutation")`, or reordering,
     of the others
@@ -80,6 +88,8 @@ P(\text{Desired Outcome})
 $$ {#eq-permutation-example}
 
 See how to do this calculation with R in @sec-example-4-1.
+:::
+***
 
 There are three outcomes, but only one of them can possibly happen and
 we don't care which. And because it's only possible for one outcome to
@@ -100,10 +110,10 @@ called $N_{outcomes}$.
 
 ------------------------------------------------------------------------
 
-::: {#thm-pfm-placeholder}
+::: {#thm-pmf-placeholder}
 #### Solution with place holders
 
-$$B(k;n,p) = N_{outcomes} \times P(\text{Desired Outcome})$$ {#eq-pfm-placeholder}
+$$B(k;n,p) = N_{outcomes} \times P(\text{Desired Outcome})$$ {#eq-pmf-placeholder}
 :::
 
 ------------------------------------------------------------------------
@@ -174,7 +184,7 @@ choose(3,2)
 See how to calculate the binomial coefficient with Base R in
 @sec-example-4-2.
 
-We can now replace $N_{Outcomes}$ in @eq-pfm-placeholder with the
+We can now replace $N_{Outcomes}$ in @eq-pmf-placeholder with the
 binomial coefficient:
 
 $$B(k;n,p) = \binom{n}{k} \times P(\text{Desired Outcome})$$
@@ -218,16 +228,16 @@ the following list with @def-binom-dist-param.
 ------------------------------------------------------------------------
 
 ::: {#thm-pmf}
-#### Probability Mass Function -- PFM
+#### Probability Mass Function (PMF) for the Binomial Distribution
 
 $$
 \binom{n}{k} \times p^{k} \times (1- p)^{n-k}
-$$ {#eq-pfm}
+$$ {#eq-pmf}
 :::
 
 ------------------------------------------------------------------------
 
-@eq-pfm is the basis of the binomial distribution. It is called a
+@eq-pmf is the basis of the binomial distribution. It is called a
 `r glossary("Probability Mass Function")` (PMF). The *mass* part of the
 name comes from the fact that we can use it to calculate the amount of
 probability for any given `k` using a fixed `n` and `p`, so this is the
@@ -261,38 +271,51 @@ tosses into our PMF and visualize what the binomial distribution looks
 like for all possible values.
 
 ![Binomial Distribution for 10 Coin
-Flips](img/BF-04-01.jpg){#fig-10-coin-flips
+Flips](img/04fig01.jpg){#fig-10-coin-flips
 fig-alt="Bar graph showing the probability of getting k in 10 coin flips"
-fig-align="center"}
+fig-align="center" width=70%}
 
-See for my experiment in  to replicate @fig-10-coin-flips
+See my @fig-repl-10-coin-flips as a replication of @fig-10-coin-flips.
 
 We can also look at the same distribution for the probability of getting a 6 when rolling a six-sided die 10 times, as shown in @fig-10-dice-rolls.
 
 ![Binomial Distribution for 10 Coin
-Flips](img/BF-04-02.jpg){#fig-10-dice-rolls
+Flips](img/04fig02.jpg){#fig-10-dice-rolls
 fig-alt="Bar graph showing the probability of getting a 6 when rolling a six-sided die 10 times"
-fig-align="center"}
+fig-align="center" width=70%}
 
-Again I will try to replicate @fig-10-dice-rolls. See @sec-example-4-4.
+Again I replicated @fig-10-dice-rolls with my @fig-repl-10-dice-rolls.
 
 Bottom line of the discussion in this section: A probability distribution is a way of generalizing an entire class of problems.
 
-## Example: Gacha Games
+## Example: Gacha Games {#sec-gacha-games}
 
-There is only one new content in this section: Instead of computing the probability of one event we are going to calculate the possibility of drawing *at least* one specific card from a pile of infinite numbers of cards where we know the probability of this card we are interested in.
+There is only one new content in this section: Instead of computing the probability of one event we are going to calculate the possibility of drawing *at least* one specific card from a pile of infinite numbers of cards where we know the probability of this card we are interested. The aim is to have a `p` of at last 50% with 100 trials and a probability of 0.720% for the card we are interested.
 
-In R, we can use the `pbinom()` function to automatically sum up all the values of the card we are interested in our PMF. 
+At first let us compute the probability for getting *exactly one card* we are interested with 100 draws form the pile. We know the probability to draw the featured card is 0.720%.
 
-![How the pbinom() functions works](img/BF-04-03.jpg){#fig-pbinom-function
+$$\binom{100}{1} \times 0.00720^{1} \times (1- 0.00720)^{100-1}$$
+
+```{r}
+#| label: draw-exact-one-card
+#| attr-source: '#lst-draw-exact-one-card lst-cap="Draw exact one card that has p = 0.720%"'
+
+dbinom(1, 100, 0.00720)
+```
+
+And now let's compute the probability for *at least one card* we are interested.
+
+In R, we can use the Binomial Cumulative Distribution Function `pbinom()` to automatically sum up all the values of the card we are interested in our PMF. 
+
+![How the pbinom() function works](img/04fig03.jpg){#fig-pbinom-function
 fig-alt="Explaining the structure of the pbinom() function"
-fig-align="center"}
+fig-align="center" width=60%}
 
 The `pbinom()` function takes three required arguments and an optional fourth called `lower.tail` (which defaults to TRUE). When the fourth argument is TRUE, the first argument sums up all of the probabilities less than or equal to our argument. When `lower.tail` is set to FALSE, it sums up the probabilities strictly greater than the first argument. By setting the first argument to $0$, we are looking at the probability of getting one or more the cards we are interested. We set `lower.tail` to FALSE because that means we want values greater than the first argument (by default, we get values less than the first argument).
 
 ```{r}
 #| label: use-pbinom-example
-#| attr-source: '#lst-use-pbinom-example lst-cap="Example Calculation with the rbinom() Function"'
+#| attr-source: '#lst-use-pbinom-example lst-cap="Example Calculation with the pbinom() Function"'
 
 pbinom(0, 100, 0.00720, lower.tail = FALSE)
 ```
@@ -301,41 +324,111 @@ Voilá! This is the same result as in @#fig-pbinom-function.
 
 ## Wrapping Up
 
-In this chapter Will Kurt demonstrated how we can deduce intuitively the formula for the binomial coefficient. I have seen this monstrosity of expression many times in different books and was always overwhelmed from its complexity. But this has changed now: Will Kurt succeeded to demystify the formula for me!
+In this chapter Will Kurt demonstrated how we can deduce intuitively the formula for the `r glossary("binomial coefficient")`. 
+
+::: {.callout-note}
+I have seen this monstrosity of expression for the binomial coefficient many times in different books and was always overwhelmed from its complexity. But this has changed now: Will Kurt succeeded to demystify the formula for me!
+:::
 
 ## Exercises
 
 Try answering the following questions to make sure you’ve grasped binomial distributions fully. The solutions can be found at https://nostarch.com/learnbayes/.
 
+### Exercise 4.1
+
 ::: {#exr-04-1}
 What are the parameters of the binomial distribution for the probability of rolling either a 1 or a 20 on a 20-sided die, if we roll the die 12 times?
 
+- k = interested events: 1 and 20 = 2.
+- n = number of trials = 12
+- p = probability for each trial = $\frac{2}{12}$
+
+```{r}
+#| label: exercise-04-1
+#| attr-source: '#lst-exercise-04-1 lst-cap="**Binomial distribution for the probability of rolling either a 1 or a 20 on a 20-sided die, if we roll the die 12 times**"'
+dbinom(2, 12, 2/20)
+```
 
 :::
+
+***
+
+### Exercise 4.2
 
 ::: {#exr-04-2}
 There are four aces in a deck of 52 cards. If you pull a card, return the card, then reshuffle and pull a card again, how many ways can you pull just one ace in five pulls?
 
 
+```{r}
+#| label: exercise-04-2
+#| attr-source: '#lst-exercise-04-2 lst-cap="**If you pull a card, return the card, then reshuffle and pull a card again, how many ways can you pull just one ace in five pulls?**"'
+combinat::combn(x = 1:5, m = 1, fun = tabulate, simplify = TRUE, nbins = 5)
+choose(5,1)
+```
+
+::: {.callout-note}
+In contrast to the result in the solution manual I programmed the exercise with `combinat::combn()`. This correct solution pretends that I could use it for every possible arrangement. That is not true. For instance I could not manage to display the many ways of rolling two 6s in three rolls of a six-sided die.
 :::
 
-::: {#exr-04-3}
-For the example in question 2, what is the probability of pulling five aces in 10 pulls (remember the card is shuffled back in the deck when it is pulled)?
-
 :::
 
-:: {#exr-04-4}
+***
+
+### Exercise 4.3
+
+:::: {#exr-04-3}
+For the example in @exr-04-2, what is the probability of pulling five aces in 10 pulls (remember the card is shuffled back in the deck when it is pulled)?
+
+```{r}
+#| label: exercise-04-3
+#| attr-source: '#lst-exercise-04-3 lst-cap="**Probability of pulling five aces in 10 pulls with replacing**"'
+dbinom(5, 10, 4 / 52) * 100
+```
+
+::: {.callout-warning}
+Only about 0.0455%. But this is different than the result in the solution manual with 1/32000 = `r 1/32000 * 100`%. I don't know why there is this difference.
+:::
+
+::::
+
+***
+
+### Exercise 4.4
+
+:::: {#exr-04-4}
 When you’re searching for a new job, it’s always helpful to have more than one offer on the table so you can use it in negotiations. If you have a 1/5 probability of receiving a job offer when you interview, and you interview with seven companies in a month, what is the probability you’ll have at least two competing offers by the end of that month?
 
+```{r}
+#| label: exercise-04-4
+#| attr-source: '#lst-exercise-04-4 lst-cap="**Probability of at least 2 interviews each with 1/5 chance for a job offer having 7 interviews**"' 
+pbinom(1, 7, 1/5, lower.tail = FALSE)
+```
+::: {.callout-note}
+There is chance of about 42% that you receive at least two job offers.
+
+In my first trial I calculated wrongly the probability for *exact 2* competing offers with `dbinom(2, 7, 1/2)` instead of *at least 2* competing offers! Additionally I forgot to add `lower.tail = FALSE`. to calculate *more than x*: x = 1, more than 1 = 2, therefore the first parameter is 1 (and not 2 as could be thought wrongly). Not using `lower.tail = FALSE` means that the default value of `lower.tail = TRUE` computes the probability of $P[X <= x]$ (instead of $P[X > x]$).
 :::
 
+::::
 
+***
 
-------------------------------------------------------------------------
+### Exercise 4.5
 
-------------------------------------------------------------------------
+::: {#exr-04-5}
 
-## I STOPPED HERE
+You get a bunch of recruiter emails and find out you have 25 interviews lined up in the next month. Unfortunately, you know this will leave you exhausted, and the probability of getting an offer will drop to 1/10 if you’re tired. You really don’t want to go on this many interviews unless you are at least twice as likely to get at least two competing offers. Are you more likely to get at least two offers if you go for 25 interviews, or stick to just 7?
+
+```{r}
+#| label: exercise-04-5
+#| attr-source: '#lst-exercise-04-5 lst-cap="**Probability of at least 2 interviews each with 1/10 chance for a job offer having 25 interviews**"'
+pbinom(1, 25, 1/10, lower.tail = FALSE)
+```
+With a reduced probability per interview you raised your changes from 42,3% to 72,9%. But to get an job offer is not twice as likely so you stick with 7 interviews.
+
+:::
+***
+
 
 ## Experiments
 
@@ -512,7 +605,7 @@ With {**tidydice**} we replicate Figure 4.1 with just 2 lines using the `binom_c
 #| attr-source: '#lst-repl-10-coin-flips-2 lst-cap="**Replicate Figure 4.1: Binomial Distribution of 10 Coin Flips {tidydice}**"'
 
 tidydice::plot_binom(
-  tidydice::binom_coin(10, sides = 2, success = 2),
+  tidydice::binom_coin(times = 10, sides = 2, success = 2),
   title = "Binomial distribution of 10 coin flips"
 )
 ```
@@ -544,7 +637,7 @@ data.frame(x = k_values,
 #| attr-source: '#lst-repl-10-dice-rolls-2 lst-cap="**Replicate Figure 4.2: Binomial Distribution of 10 Dice Rolls {tidydice}**"'
 
 tidydice::plot_binom(
-  tidydice::binom_dice(10, sides = 6, success = 6),
+  tidydice::binom_dice(times = 10, sides = 6, success = 6),
   title = "Binomial distribution of 10 dice rolls"
 )
 ```
