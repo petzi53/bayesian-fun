@@ -54,9 +54,38 @@ This definition works for independent probabilities as well, because for indepen
 
 We can also update our definition of the sum rule (@eq-sum-rule) to account for this fact:
 
-$$P(A \operatorname{or} B) = P(A) + P(B) – P(A) × P(B \mid A)$$ {#sum-rule-revised}
+$$P(A \operatorname{OR} B) = P(A) + P(B) – P(A) × P(B \mid A)$$ {#eq-sum-rule-revised}
 
 Now we can still easily use our rules of probabilistic logic from @sec-logic-unvertainty and handle conditional probabilities.
+
+::: {.callout-note}
+#### Product & Sum Rules revised
+
+To understand better the differences I will contrast the independent rules with their conditional version:
+
+<center>**Product Rule of Probability**</center>
+
+$$
+\begin{align*}
+P(A,B) = P(A) \times P(B) \\
+P(A,B) = P(A) \times P(B \mid A)
+\end{align*}
+$$
+
+***
+
+
+<center>**Sum Rule of Probability**</center>
+
+$$
+\begin{align*}
+P(A) \operatorname{OR} P(B) = P(A) + P(B) – P(A,B) \\
+P(A \operatorname{or} B) = P(A) + P(B) – P(A) × P(B \mid A)
+\end{align*}
+$$
+
+
+:::
 
 ::: {.callout-warning}
 In practice, knowing how two events are related is often difficult. Assuming that two events are independent (even when they likely aren’t) is therefore a very common practice in statistics.
@@ -68,7 +97,11 @@ While assuming independence is often a practical necessity, never forget how muc
 
 One of the most amazing things we can do with conditional probabilities is reversing the condition to calculate the probability of the event we’re conditioning on; that is, we can use $P(A\mid B)$ to arrive at $P(B \mid A)$. 
 
-For instance: We know that $P(\text{color blind} \mid male) = 0.08$ and that $P(\text{color blind} \mid female) = 0.005$, but how can we determine $P(male \mid \text{color blind})$?
+As an example, say you’re emailing a customer service rep at a company that sells color blindness–correcting glasses. The glasses are a little pricey, and you mention to the rep that you’re worried they might not work. The rep replies, “I’m also color blind, and I have a pair myself—they work really well!”
+
+We want to figure out the probability that this rep is male. However, the rep provides no information except an ID number. So how can we figure out the probability that the rep is male?
+
+We know that $P(\text{color blind} \mid male) = 0.08$ and that $P(\text{color blind} \mid female) = 0.005$, but how can we determine $P(male \mid \text{color blind})$?
 
 The heart of Bayesian statistics is data, and right now we have only one piece of data (other than our existing probabilities): we know that the customer support rep is color blind. Our next step is to look at the portion of the total population that is color blind; then, we can figure out what portion of that subset is male.
 
@@ -105,9 +138,77 @@ Given the calculation, we know there is a 94.1 percent chance that the customer 
 There is nothing actually specific to our case of color blindness in the preceding formula, so we should be able to generalize it to any given A and B probabilities. If we do this, we get the most foundational formula in this book, `r glossary("Bayes’ theorem")`:
 
 $$
-P(A \mid B) = \frac{P(B) \times P(B) \mid A)}{P(B)}
-$$ {eq-bayes-rule-1}
+P(A \mid B) = \frac{P(B) \times P(B) \mid A)}{P(B)} = (\text{Bayes Theorem})\\
+P(male \mid \text{color blind}) = \frac{P(male) \times P(\text{color blind} \mid male)} {P(\text{color blind})} (= \text{Color Blind Example})
+$$ {#eq-bayes-rule-1}
 
 Our beliefs describe the world we know, so when we observe something, its conditional probability represents the *likelihood of what we’ve seen given what we believe*, or:
 
-$$P(observes \mid belief)$$
+$$P(data \mid belief)$$
+“What is the probability of what I’ve observed (the data), given that I believe climate change is true?” But what you want is some way to quantify how strongly you believe climate change is really happening, given what (data) you have observed.
+
+$$P(belief \mid data)$$
+
+In this example, Bayes’ theorem allows you to transform your observation of five droughts in a decade into a statement about how strongly you believe in climate change *after* you have observed these droughts. The only other pieces of information you need are the general probability of 5 droughts in 10 years (which could be estimated with historical data) and your initial certainty of your belief in climate change. And while most people would have a different initial probability for climate change, Bayes’ theorem allows you to quantify exactly how much the data changes any belief.
+
+For example, if the expert says that 5 droughts in 10 years is very likely if we assume that climate change is happening, most people will change their previous beliefs to favor climate change a little, whether they’re skeptical of climate change or they’re Al Gore.
+
+However, suppose that the expert told you that in fact, 5 droughts in 10 years was very unlikely given your assumption that climate change is happening. In that case, your prior belief in climate change would weaken slightly given the evidence. The key takeaway here is that Bayes’ theorem ultimately allows evidence to change the strength of our beliefs.
+
+Bayes’ theorem allows us to take our beliefs about the world, combine them with data, and then transform this combination into an estimate of the strength of our beliefs given the evidence we’ve observed.
+
+## Wrapping Up
+
+In this chapter, you learned about conditional probabilities and about Bayes’ theorem which is fundamental to understanding how we can use data to update what we believe about the world.
+
+## Exercises
+
+Try answering the following questions to see how well you understand conditional probability and Bayes’ theorem. The solutions can be found at https://nostarch.com/learnbayes/.
+
+### Excercise 6-1
+
+What piece of information would we need in order to use Bayes’ theorem to determine the probability that someone in 2010 who had GBS *also* had the flu vaccine that year?
+
+This is the question for $P(\text{flu vaccine} \mid GBS)$. Let's set up Bayes’ theorem and compare which information we have for this example in the book text and which information is missing:
+
+$$
+P(\text{flu vaccine} \mid GBS) = \frac{P(\text{flu vaccine}) \times P(GBS \mid \text{flu vaccine})}{P(GBS)}
+$$
+- We know that $P(GBS) = \frac{2}{100,000}$
+- We know that $P(GBS \mid \text{flu vaccine}) = \frac{3}{100,000}$
+
+The only factor in the formula we do not know is $P(\text{flu vaccine})$.
+
+### Exercise 6-2
+
+What is the probability that a random person picked from the population is female and is not color blind?
+
+$$
+\begin{align*}
+P(female \mid \text{not color blind}) = P(female) \times P(\text{not color blind} \mid P(female)) \\
+= 0.5 \times 0.995 = 0.4975
+\end{align*}
+$$
+
+::: {.callout-warning}
+
+My calculation was wrong as I used Bayes’ rule instead just the product rule:
+
+$$
+\begin{align*}
+P(female \mid \text{not color blind}) = \frac{P(female) \times P(\text{not color blind} \mid P(female))}{P({\text{not color blind})}} \\
+= \frac{0.5 \times 0.995}{0.9575} \\
+= 0.5195822
+\end{align*}
+$$
+
+Thinking about the result I should have known that it couldn't be correct: There are 50% women in the population. From these 50% is a tiny percentage color blind. Therefore the result of women that are not color blind should be a proportion slightly under 50%.
+
+:::
+
+### Exercise 6-3
+
+What is the probability that a male who received the flu vaccine in 2010 is either color blind or has GBS?
+
+Here I should use the revised sum rule from @eq-sum-rule-revised. But I am still working on this problem. Up to now (2023-09-13) I haven't found a solution.
+
