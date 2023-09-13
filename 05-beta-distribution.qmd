@@ -237,6 +237,9 @@ Try answering the following questions to make sure you understand how we can use
 You want to use the `r glossary("beta distribution")` to determine whether or not a coin you have is a fair coin — meaning that the coin gives you heads and tails equally. You flip the coin 10 times and get 4 heads and 6 tails. Using the beta distribution, what is the probability that the coin will land on heads more than 60 percent of the time?
 
 ```{r}
+#| label: integrate-dbeta-4-6
+#| attr-source: '#lst-integrate-dbeta-4-6 lst-cap="Probability that a coin will land on heads more than 60% given 4 heads in 10 tosses"'
+
 integrate(function(p) dbeta(p, 4, 6), 0.6, 1)
 
 
@@ -247,6 +250,9 @@ integrate(function(p) dbeta(p, 4, 6), 0.6, 1)
 You flip the coin 10 more times and now have 9 heads and 11 tails total. What is the probability that the coin is fair, using our definition of fair, give or take 5 percent?
 
 ```{r}
+#| label: integrate-dbeta-9-11
+#| attr-source: '#lst-integrate-dbeta-9-11 lst-cap="Probability that a coin is fair within a 5% range given 9 heads in 20 tosses"'
+
 integrate(function(p) dbeta(p, 9, 11), 0.45, 0.55)
 ```
 
@@ -255,6 +261,9 @@ integrate(function(p) dbeta(p, 9, 11), 0.45, 0.55)
 Data is the best way to become more confident in your assertions. You flip the coin 200 more times and end up with 109 heads and 111 tails. Now what is the probability that the coin is fair, give or take 5 percent?
 
 ```{r}
+#| label: integrate-dbeta-109-111
+#| attr-source: '#lst-integrate-dbeta-109-111 lst-cap="Probability that a coin is fair within a 5% range given 109 heads in 220 tosses"'
+
 integrate(function(p) dbeta(p, 109, 111), 0.45, 0.55)
 ```
 
@@ -335,45 +344,44 @@ ggplot2::ggplot(ggplot2::aes(x = x, y = y)) +
 
 Our data tells us that of 1,200 cards pulled, there were only 5 cards we are interested in. Our friend is thinking of spending money on the game but only wants to do it if there is a better than 0.7 probability that the chance of pulling a Bradley Efron (the card we are interested) is greater than 0.005.
 
-::: {.callout-note}
-Until now I couldn't manage to replicate @fig-05-04.
-:::
-
 ```{r}
-#| label: repl-5-4
-#| attr-source: '#lst-repl-5-3 lst-cap="Replication of Figure 5.4: The beta distribution for getting the card we are interested in, given our data"'
-#| include: false
+#| label: fig-repl-5-4a
+#| fig-cap: "The beta distribution form 0 to 1 for getting the card we are interested in, given our data" 
+#| attr-source: '#lst-fig-repl-5-4a lst-cap="Replication of Figure 5.4: The beta distribution for getting the card we are interested in, given our data"'
 
-p <- integrate(function(x) dbeta(x,5,1195),0.005,1)
+tibble::tibble(x = seq(from = 0, to = 1, length = 1000),
+              y = dbeta(x,5,1195)) |> 
 
-d <- tibble::tibble(x = seq(from = 0, to = 1, by = 0.01),
-#               y = dbeta(x, 0.005, 1), 5, 1195) |> 
-#               y = pbinom(dbeta(x, 5, 1195), 1200, 0.005)) |> 
-#               y = dbeta(pbinom(x, 1200, .005), 5, 1995))
-#               y = pbeta(dbeta(x, 5, 1195), 1200, 0.005))
-#               y = pbinom(dbeta(x, 5, 1195), 1200, 0.005, lower.tail = FALSE))
-#               y = dbeta(pbinom(x, 1200, .005, lower.tail = FALSE), 5, 1995))
-#               y = dbeta(pbinom(x, 1200, .005, lower.tail = TRUE), 5, 1995))
-#               y = dbeta(x, 0.005, 1), 5, 1195, lower.tail = TRUE)
-#               y = pbeta(x, 0.005, 1), 5, 1195, lower.tail = TRUE)
-#               y = pbinom(0, 1200, dbeta(x, 5, 1195), lower.tail = FALSE))
-#               y = dbeta(pbinom(0, 1200, 0.005, lower.tail = FALSE), 5, 1195))
-#               y = dbeta(dbinom(0, 1200, 0.005), 5, 1195)
-#               y = pbinom(dbeta(x,5,1195),0.005,1, lower.tail = FALSE)
-#               y = pbeta(dbeta(x,5,1195),0.2850559,1, lower.tail = FALSE)
-               y = dbeta(pbeta(x, 0.005, 1, lower.tail = FALSE), 5, 1195) # !!
-
-
-
-)
-
-ggplot2::ggplot(d, ggplot2::aes(x = x, y = y)) +
+ggplot2::ggplot(ggplot2::aes(x = x, y = y)) +
     ggplot2::geom_line() +
     ggplot2::theme_bw() +
     ggplot2::labs(
         title = "Pulling a Bradley Efron Card, Beta(5, 1195)",
         x = "p",
         y = "Probability"
-    )
+)
+```
+
+This was my first try. At first I thought that my @lst-fig-repl-5-4a is wrong as @fig-05-04 has a very different appearance. But then I noticed that my graphics displays value from 0 to 1 whereas @fig-05-04 visualizes only values between 0 and 0.01! 
+
+In @lst-fig-repl-5-4b I changed the visualization just showing values from 0 to 0.01.
+
+
+```{r}
+#| label: repl-5-4b
+#| fig-cap: "The beta distribution form 0 to 0.01 for getting the card we are interested in, given our data" 
+#| attr-source: '#lst-fig-repl-5-4b lst-cap="Replication of Figure 5.4: The beta distribution for getting the card we are interested in, given our data"'
+
+tibble::tibble(x = seq(from = 0, to = 0.01, length = 1000),
+              y = dbeta(x,5,1195)) |> 
+
+ggplot2::ggplot(ggplot2::aes(x = x, y = y)) +
+    ggplot2::geom_line() +
+    ggplot2::theme_bw() +
+    ggplot2::labs(
+        title = "Pulling a Bradley Efron Card, Beta(5, 1195)",
+        x = "p",
+        y = "Probability"
+)
 ```
 

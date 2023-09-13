@@ -1,0 +1,113 @@
+---
+engine: knitr
+---
+
+# Conditional Probability
+
+So far, we have dealt only with independent probabilities. Probabilities are independent when the outcome of one event does not affect the outcome of another. 
+
+In this chapter, you’ll learn how to reason about `r glossary("conditional probability")`, where probabilities are not independent but rather depend on the outcome of particular events. I’ll also introduce you to one of the most important applications of conditional probability: `r glossary("Bayes’ theorem")`.
+
+## Introducing Conditional Probability
+
+In our first example of conditional probabilities, we’ll look at flu vaccines and possible complications of receiving them. When you get a flu vaccine, you’re typically handed a sheet of paper that informs you of the various risks associated with it. One example is an increased incidence of Guillain-Barré syndrome (GBS), a very rare condition that causes the body’s immune system to attack the nervous system, leading to potentially life-threatening complications. According to the Centers for Disease Control and Prevention (CDC), the probability of contracting GBS in a given year is 2 in 100,000. 
+
+$$P(GBS) = \frac{2}{100,000}$$
+
+Normally the flu vaccine increases your probability of getting GBS only by a trivial amount. In 2010, however, there was an outbreak of swine flu, and the probability of getting GBS if you received the flu vaccine that year rose to 3/100,000. In this case, the probability of contracting GBS directly depended on whether or not you got the flu vaccine, and thus it is an example of a conditional probability. 
+
+We express conditional probabilities as $P(A \mid B)$, or the probability of A *given* B. Mathematically, we can express the chance of getting GBS as:
+
+$$P(GBS \mid \text{flu vaccine}) = \frac{3}{100,000}$$
+We read this expression in English as “The probability of having GBS, given that you got the flu vaccine, is 3 in 100,000.”
+
+### Why Conditional Probabilities Are Important
+
+Conditional probabilities are an essential part of statistics because they allow us to demonstrate how information changes our beliefs.
+
+$$\frac{P(GBS \mid \text{flu vaccine})}{P(GBS)} = 1.5$$
+So if you had the flu shot in 2010, we have enough information to believe you’re 50 percent more likely to get GBS than a stranger picked at random. Fortunately, on an individual level, the probability of getting GBS is still very low. But if we’re looking at populations as a whole, we would expect 50 percent more people to have GBS in a population of people that had the flu vaccine than in the general population.
+
+There are also other factors that can increase the probability of getting GBS. For example, males and older adults are more likely to have GBS. Using conditional probabilities, we can add all of this information to better estimate the likelihood that an individual gets GBS.
+
+### Dependence and the Revised Rules of Probability
+
+As a second example of conditional probabilities, we’ll use color blindness, a vision deficiency that makes it difficult for people to discern certain colors. In the general population, about 4.25 percent of people are color blind. The vast majority of cases of color blindness are genetic. Color blindness is caused by a defective gene in the X chromosome. Because males have only a single X chromosome and females have two, men are about 16 times more likely to suffer adverse effects of a defective X chromosome and therefore to be color blind. So while the rate of color blindness for the entire population is 4.25 percent, it is only 0.5 percent in females but 8 percent in males. For all of our calculations, we’ll be making the simplifying assumption that the male/female split of the population is exactly 50/50. Let’s represent these facts as conditional probabilities:
+
+$$
+\begin{align*}
+P(\text{color blind}) = 0.0425 \\
+P(\text{color blind} \mid female) = 0.005 \\
+P(\text{color blind} \mid male) = 0.08
+\end{align*}
+$$
+Given this information, if we pick a random person from the population, what’s the probability that they are male and color blind?
+
+You can't use the product rule of @eq-product-rule because it works only with independent probabilities. But being male (or female) and color blind are dependent probabilities. So the true probability of finding a male who is color blind is the probability of picking a male multiplied by the probability that he is color blind.
+
+$$P(male, \text{color blind}) = P(male) \times P(\text{color blind} \mid male) = 0.5 \times 0.08 = 0.04$$
+We can generalize this solution to rewrite our product rule as follows:
+
+$$P(A,B) = P(A) \times P(B \mid A)$$ {#eq-product-rule-revised}
+
+This definition works for independent probabilities as well, because for independent probabilities $P(B) = P(B \mid A)$. This makes intuitive sense when you think about flipping heads and rolling a 6; because $P(six)$ is 1/6 independent of the coin toss, $P(six | heads)$ is also 1/6.
+
+We can also update our definition of the sum rule (@eq-sum-rule) to account for this fact:
+
+$$P(A \operatorname{or} B) = P(A) + P(B) – P(A) × P(B \mid A)$$ {#sum-rule-revised}
+
+Now we can still easily use our rules of probabilistic logic from @sec-logic-unvertainty and handle conditional probabilities.
+
+::: {.callout-warning}
+In practice, knowing how two events are related is often difficult. Assuming that two events are independent (even when they likely aren’t) is therefore a very common practice in statistics.
+
+While assuming independence is often a practical necessity, never forget how much of an impact dependence can have.
+:::
+
+## Conditional Probabilities in Reverse and Bayes’ Theorem
+
+One of the most amazing things we can do with conditional probabilities is reversing the condition to calculate the probability of the event we’re conditioning on; that is, we can use $P(A\mid B)$ to arrive at $P(B \mid A)$. 
+
+For instance: We know that $P(\text{color blind} \mid male) = 0.08$ and that $P(\text{color blind} \mid female) = 0.005$, but how can we determine $P(male \mid \text{color blind})$?
+
+The heart of Bayesian statistics is data, and right now we have only one piece of data (other than our existing probabilities): we know that the customer support rep is color blind. Our next step is to look at the portion of the total population that is color blind; then, we can figure out what portion of that subset is male.
+
+To help reason about this, let’s add a new variable $N$, which represents the total population of people. As stated before, we first need to calculate the total subset of the population that is color blind. We know $P(\text{color blind})$, so we can write this part of the equation like so:
+
+$$
+P(male \mid \text{color blind}) = \frac{?}{P(\text{color blind}) \times N}
+$$
+Next we need to calculate the number of people who are male and color blind. This is easy to do since we know $P(male)$ and $P(\text{color blind} | male)$, and we have our revised product rule @eq-product-rule-revised. So we can simply multiply this probability by the population:
+
+$$P(male) \times P(\text{color blind} | male) × N$$
+
+So the probability that the customer service rep is male, given that they’re color blind, is:
+
+$$
+P(male \mid \text{color blind}) = \frac{P(male) \times P(\text{color blind} \mid male) \times N} {P(\text{color blind}) \times N}
+$$
+
+Our population variable $N$ is on both the top and the bottom of the fraction, so the $N$s cancel out:
+
+$$
+P(male \mid \text{color blind}) = \frac{P(male) \times P(\text{color blind} \mid male)} {P(\text{color blind})}
+$$
+
+We can now solve our problem since we know each piece of information:
+
+$$
+P(male \mid \text{color blind}) = \frac{P(male) \times P(\text{color blind} \mid male)} {P(\text{color blind})} = \frac{0.5 \times 0.08}{0.0425} = 0.941
+$$
+Given the calculation, we know there is a 94.1 percent chance that the customer service rep is in fact male!
+
+## Introducing Bayes’ Theorem
+
+There is nothing actually specific to our case of color blindness in the preceding formula, so we should be able to generalize it to any given A and B probabilities. If we do this, we get the most foundational formula in this book, `r glossary("Bayes’ theorem")`:
+
+$$
+P(A \mid B) = \frac{P(B) \times P(B) \mid A)}{P(B)}
+$$ {eq-bayes-rule-1}
+
+Our beliefs describe the world we know, so when we observe something, its conditional probability represents the *likelihood of what we’ve seen given what we believe*, or:
+
+$$P(observes \mid belief)$$

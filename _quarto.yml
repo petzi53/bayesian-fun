@@ -20,6 +20,7 @@ book:
     - 05-beta-distribution.qmd
 
     - part: "Part II: Bayesian Probability and Prior Probabilities"
+    - 06-conditional-probability.qmd
     - 95-references.qmd
 
 bibliography: references.bib

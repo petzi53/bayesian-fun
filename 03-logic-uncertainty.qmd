@@ -1,7 +1,7 @@
 ---
 engine: knitr
 ---
-# Logic of Uncertainty
+# Logic of Uncertainty {#sec-logic-unvertainty}
 
 In traditional logic, there are three important operators: `NOT`, `AND` and `OR.` For example, consider this statement: If it is raining AND I am going outside, I will need an umbrella. This statement contains just one logical operator: AND. Because of this operator we know that if it’s true that it is raining, AND it is true that I am going outside, I’ll need an umbrella.
 
