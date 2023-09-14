@@ -137,10 +137,17 @@ Given the calculation, we know there is a 94.1 percent chance that the customer 
 
 There is nothing actually specific to our case of color blindness in the preceding formula, so we should be able to generalize it to any given A and B probabilities. If we do this, we get the most foundational formula in this book, `r glossary("Bayes’ theorem")`:
 
+::: {#thm-bayes-rule-1}
+#### Bayes’ Theorem (Variation 1)
+
 $$
 P(A \mid B) = \frac{P(B) \times P(B) \mid A)}{P(B)} = (\text{Bayes Theorem})\\
 P(male \mid \text{color blind}) = \frac{P(male) \times P(\text{color blind} \mid male)} {P(\text{color blind})} (= \text{Color Blind Example})
 $$ {#eq-bayes-rule-1}
+
+:::
+
+
 
 Our beliefs describe the world we know, so when we observe something, its conditional probability represents the *likelihood of what we’ve seen given what we believe*, or:
 
@@ -165,7 +172,7 @@ In this chapter, you learned about conditional probabilities and about Bayes’ 
 
 Try answering the following questions to see how well you understand conditional probability and Bayes’ theorem. The solutions can be found at https://nostarch.com/learnbayes/.
 
-### Excercise 6-1
+### Exercise 6-1
 
 What piece of information would we need in order to use Bayes’ theorem to determine the probability that someone in 2010 who had GBS *also* had the flu vaccine that year?
 
