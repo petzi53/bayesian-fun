@@ -23,6 +23,7 @@ book:
     - 06-conditional-probability.qmd
     - 07-bayes-lego.qmd
     - 08-prior-likelihood-posterior.qmd
+    - 09-probability-distributions.qmd
     - 95-references.qmd
 
 bibliography: references.bib
