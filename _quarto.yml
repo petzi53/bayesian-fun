@@ -11,7 +11,7 @@ book:
   chapters:
     - index.qmd
 
-    - part: "Part I: Introduction to Probability"
+    - part: "PART I: Introduction to Probability"
     - 00-intro.qmd
     - 01-everyday-reasoning.qmd
     - 02-measuring-uncertainty.qmd
@@ -19,11 +19,15 @@ book:
     - 04-binomial-distribution.qmd
     - 05-beta-distribution.qmd
 
-    - part: "Part II: Bayesian Probability and Prior Probabilities"
+    - part: "PART II: Bayesian Probability and Prior Probabilities"
     - 06-conditional-probability.qmd
     - 07-bayes-lego.qmd
     - 08-prior-likelihood-posterior.qmd
     - 09-probability-distributions.qmd
+
+    - part: "PART III: Parameter Estimation"
+    - 10-parameter-estimation.qmd
+    - 11-data-spread.qmd
     - 95-references.qmd
 
 bibliography: references.bib

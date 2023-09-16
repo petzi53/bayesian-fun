@@ -1,0 +1,239 @@
+---
+engine: knitr
+---
+
+# Measuring the Spread of our Data
+
+The chapter explains three different methods to measure the spread of
+data:
+
+1.  `r glossary("Mean absolute deviation")` (MAD)
+2.  `r glossary("variance var", "Variance")`
+3.  `r glossary("Standard deviation")` (sigma, $\sigma$)
+
+## Dropping Coins in a Well
+
+Having different spreads in two data set does not prevent that they have
+the same mean ($\mu$).
+
+## Finding the Mean Absolute Deviation
+
+To measure the dispersion of data you can't simply sum the distances
+from the mean because the positive and negative differences cancel each
+other out. To take absolute values wouldn't work either because we got
+higher values with more data. We need to normalize by dividing by the
+total number of observations.
+
+The mean absolute deviation uses this procedure but instead to divide by
+the number of observation it divides by its reciprocal value
+$\frac{1}{n}$.
+
+------------------------------------------------------------------------
+
+::: {#thm-mad}
+#### Formula for the Mean Absolute Deviation (MAD)
+
+$$MAD(x) = \frac{1}{n} \times \sum_{1}^{n}|x_{i} - \mu|$$ {#eq-mad}
+
+> We call the result of this formula the
+> `r glossary("mean absolute deviation")` (MAD). The MAD is a very
+> useful and intuitive measure of how spread out your observations are.
+> (98)
+:::
+
+------------------------------------------------------------------------
+
+## Finding the Variance
+
+To square the differences to the mean ($x_{i} - \mu$) is another way to
+get only positive values. This measure of dispersion is called
+`r glossary("variance var", "variance")` and has the advantage to
+produce an "*exponential penalty*, meaning measurements very far away
+from the mean are penalized much more." (99)
+
+------------------------------------------------------------------------
+
+::: {#thm-variance}
+#### Formula for the Variance (Var)
+
+$$Var(x) = \frac{1}{n} \times \sum_{1}^{n}(x_{i} - \mu)^2$$ {#eq-variance}
+
+The formula for the variance is exactly the same as MAD in @eq-mad
+except that the absolute value function in MAD has been replaced with
+squaring.
+:::
+
+------------------------------------------------------------------------
+
+## Finding the Standard Deviation
+
+With the squared results in computing the variance we are loosing the
+intuitive meaning of the values. Therefore by taking the square root the
+standard deviation as another measure of dispersion that is easier to
+interpret than the variance.
+
+------------------------------------------------------------------------
+
+::: {#thm-sigma}
+#### Formula for the Standard Deviation (sigma, $\sigma$)
+
+$$\sigma = \sqrt{\frac{1}{n} \times \sum_{1}^{n}(x_{i} - \mu)^2}$$ {#eq-sigma}
+
+> The standard deviation is so useful and ubiquitous that, in most of
+> the literature on probability and statistics, variance is defined
+> simply as $\sigma^2$, or sigma squared!
+:::
+
+------------------------------------------------------------------------
+
+::: callout-warning
+There is another difference between the simple variance and standard
+deviation. In the base R case both use as denominator $n - 1$ and *not*
+just $n$. The reason is -- as Will Kurt explains in the solution manual
+page 242 -- that both measure addresses the sample (variance and
+standard deviation) and not the population.
+
+The difference is not important if you have a large data set, but with
+the toy data in this chapter the difference matters.
+:::
+
+## Wrapping Up
+
+In this chapter we learned about three different methods to measure the
+spread of data:
+
+1.  `r glossary("Mean absolute deviation")` (MAD): It is the most
+    intuitive measure.
+2.  `r glossary("variance var", "Variance")` (var): It is mathematically
+    easy to use and has the nice property of an exponential penalty.
+3.  `r glossary("Standard deviation")` (sigma, $\sigma$): This is the
+    most used measure for dispersion as it is reasonable intuitive and
+    mathematically easy to use.
+
+## Exercises
+
+Try answering the following questions to see how well you understand
+these different methods of measuring the spread of data. The solutions
+can be found at <https://nostarch.com/learnbayes/>.
+
+### Exercise 11-1
+
+One of the benefits of variance is that squaring the differences makes
+the penalties exponential. Give some examples of when this would be a
+useful property.
+
+**Solution**:
+
+::: callout-note
+My solution hinted at outliers but this is not the much more practical
+intended solution. The penalty is not only useful whenever the distance
+to missing the intended value is important. Will Kurt uses the example
+of a teleporter missing its intended location by 3 feet, 3 miles of 30
+miles.
+:::
+
+### Exercise 11-2
+
+Calculate the mean, variance, and standard deviation for the following
+values: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10.
+
+**Solution**:
+
+```{r}
+#| label: exr-11-2
+#| attr-source: '#lst-exr-11-2 lst-cap="Exercise 11-2: Calculate the mean, variance, and standard deviation for the following values: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10."'
+
+var_fun <- function(x) {
+  sum((x - mean(x))^2) * 1 / length(x)
+}
+
+sd_fun <- function(x) {
+  sqrt(sum((x - mean(x))^2) * 1 / length(x))
+}
+
+
+x3 <-  1:10
+mean(x3)
+var_fun(x3)
+sd_fun(x3)
+```
+
+## Experiments
+
+### Computing the MAD
+
+There is a function `stats::mad()` in base R to compute the MAD, but it
+is in several aspects different to the calculation of Will Kurt:
+
+1.  First of all the abbreviation stands for Median Absolute Deviation.,
+    e.g. it computes by default the deviation from the median. This is
+    the more robust central measure as outliers does not have so much
+    impact as in the case of the mean calculation. But you could change
+    the default parameter `center = median(x)` to `center = mean(x)`.
+2.  The function includes a scale factor of 1.4826 to ensure consistency
+    for $X_{i}$, distributed as $N(\mu, \sigma^2)$ and large $n$. Again
+    you could change this by setting the parameter `constant = 1`.
+3.  But most important the base R function divides by n and not by the
+    reciprocal value of $\frac{1}{n}$.
+
+So the best way is to write our own R function corresponding to the
+calculation by Will Kurt:
+
+```{r}
+#| label: compute-mad
+#| attr-source: '#lst-compute-mad lst-cap="Create a function to compute the mean absolute deviation (MAD) as used in the book"'
+
+mad_fun <- function(x) {
+    sum(abs(x - mean(x))) * 1 / length(x)
+}
+
+x1 <- c(3.02, 2.95, 2.98, 3.08, 2.97)
+x2 <- c(3.31, 2.16, 3.02, 3.71, 2.80)
+
+mad_fun(x1)
+mad_fun(x2)
+
+```
+
+This is the same result as in the book, page 98.
+
+### Computing the variance
+
+The variance can be computed with the R base function `stats::var()`.
+But again there is the difference that this formula does not take the
+reciprocal value of the observed events but just divides by n.
+
+Again we have to develop our own R function to get the same results as
+Will Kurt:
+
+```{r}
+#| label: compute-variance
+#| attr-source: '#lst-compute-variance lst-cap="Create a function to compute the variance as used in the book"'
+
+var_fun <- function(x) {
+  sum((x - mean(x))^2) * 1 / length(x)
+}
+
+var_fun(x1)
+var_fun(x2)
+```
+
+### Comouting the Standard Deviation (sigma $\sigma$)
+
+The base R function for the standard deviation is `stats::sd()` But as
+in @eq-mad and @eq-variance we need to write our own function to get the
+same values as in the book because of the difference divided by $n$
+(base R) and divided by the reciprocal value $\frac{1}{n}$ (book).
+
+```{r}
+#| label: compute-sd
+#| attr-source: '#lst-compute-sd lst-cap="Create a function to compute the standard deviation as used in the book"'
+
+sd_fun <- function(x) {
+  sqrt(sum((x - mean(x))^2) * 1 / length(x))
+}
+
+sd_fun(x1)
+sd_fun(x2)
+```
+
