@@ -1,0 +1,211 @@
+# The Normla Distribution
+
+## Measuring Fuses for Dastardly Deeds
+
+Setting up fuses and measuring how long it takes them to burn through to make sure one has 18 seconds to get away. The times recorded (in seconds) for each fuse to burn through are: 19, 22, 20, 19, 23.
+
+> Calculating the mean gives us μ = 20.6, and calculating the standard deviation gives us σ = 1.62.
+
+Keep in mind that R computes the standard deviation dividing by $n - 1$ instead of just $n$ as in the book. so we have to use again our own function as developed in @lst-compute-sd.
+
+```{r}
+#| label: comp-mean
+#| attr-source: '#lst-comp-mean lst-cap="Compute mean"'
+
+(mu <- mean(c(19, 22, 20, 19, 23)))
+```
+
+```{r}
+#| label: comp-sigma-with-r-function
+#| attr-source: '#lst-comp-sigma-with-r-function lst-cap="Compute standard deviation with base R function"'
+
+(sigma1 <- sd(c(19, 22, 20, 19, 23)))
+```
+
+
+```{r}
+#| label: comp-sigma-with-own-function
+#| attr-source: '#lst-comp-sigma-with-own-function lst-cap="Compute standard deviation with own function"'
+
+sd_fun <- function(x) {
+  sqrt(sum((x - mean(x))^2) * 1 / length(x))
+}
+
+(sigma2 <- sd_fun(c(19, 22, 20, 19, 23)))
+```
+
+## The Normal Distribution
+
+> The normal distribution is a continuous probability distribution (like the beta distribution in @sec-beta-distribution) that best describes the strength of possible beliefs in the value of an uncertain measurement, given a known mean and standard deviation. (104)
+
+![A normal distribution with μ = 0 and σ = 1](img/12fig03.jpg){#fig-12-03
+fig-alt="A normal distribution with mu = 0 and sigma = 1"
+fig-align="center" width="70%"}
+
+::: {layout-ncol=2}
+![A normal distribution with μ = 0 and σ = 0.5](img/12fig04.jpg){#fig-12-04
+fig-alt="A normal distribution with mu = 0 and sigma = 0.5"}
+
+![A normal distribution with μ = 0 and σ = 2](img/12fig05.jpg){#fig-12-05
+fig-alt="A normal distribution with mu = 0 and sigma = 2" width="70%"}
+:::
+
+## Solving the Fuse Problem
+
+![A normal distribution with μ = 20.6 and σ = 1.62](img/12fig06.jpg){#fig-12-06
+fig-alt="A normal distribution with mu = 20.6 and sigma = 1.62" width="70%"}
+
+What is the probability, given the data observed, that the fuse will run for 18 seconds or less? 
+
+![The area under the curve that we’re interested in](img/12fig07.jpg){#fig-12-07
+fig-alt="A normal distribution with mu = 20.6 and sigma = 1.62" width="70%"}
+
+The area of the shaded region represents the probability of the fuse lasting 18 seconds or less given the observations. Notice that even though none of the observed values was less than 18, because of the spread of the observations, the normal distribution in @fig-12-06 shows that a value of 18 or less is still possible. 
+
+By integrating over all values less than 18, we can calculate the probability that the fuse will not last as long as our villain needs it to.
+
+> We can see that the line in the PDF is nearly flat at 10, meaning there is virtually no probability in this region, so we can just integrate from 10 to 18. We could also choose a lower value, like 0, but because there’s effectively no probability in this region, it won’t change our result in any meaningful way.
+
+I am using 0, because this value is more intuitive for me.
+
+```{r}
+integrate(function(x)
+    dnorm(x, mean = 20.6, sd = 1.62), 0, 18)
+```
+The same result but a smaller error in my version: < 3e-11 vs. < 3.5e-05
+
+> Rounding the value, we can see that `P(fuse time < 18) = 0.05`, telling us there is a 5 percent chance that the fuse will last 18 seconds or less.
+
+## Some Tricks and Intuitions
+
+> For *any* normal distribution with a known mean and standard deviation, you can estimate the area under the curve around `μ` in terms of `σ`.
+
+**Distance from the mean**
+
+- `1σ`: 68%
+- `2σ`: 95%
+- `3σ`: 99,7%
+
+![Sixty-eight percent of the probability density (area under the curve) lies between one standard deviation of the mean in either direction.](img/12fig08.jpg){#fig-12-08
+fig-alt="Sixty-eight percent of the probability density (area under the curve) lies between one standard deviation of the mean in either direction." width="70%"}
+
+> This little trick is very useful for quickly assessing the likelihood of a value given even a small sample. … Even when we *do* want to use R to integrate, this trick can be useful for determining a minimum or maximum value to integrate from or to. 
+
+## "N Sigma" Events
+
+> “the fall of the stock price was an eight-sigma event.” What this expression means is that the observed data is eight standard deviations from the mean. We saw the progression of one, two, and three standard deviations from the mean, which were values at 68, 95, and 99.7 percent, respectively. You can easily intuit from this that an eight-sigma event must be extremely unlikely. 
+
+::: {.callout-warning}
+If you ever see data that is 5 or more standard deviation away from the mean: Check you distribution because it could be a that your data didn't come from a normal distribution.
+:::
+
+## The Beta Distribution and the Normal Distribution
+
+> You may remember from @sec-beta-distribution that the beta distribution allows us to estimate the true probability given that we have observed `α` desired outcomes and `β` undesired outcomes, where the total number of outcomes is `α + β`. Based on that, you might take some issue with the notion that the normal distribution is truly the best method to model parameter estimation given that we know only the mean and standard deviation of any given data set. After all, we could describe a situation where `α = 3` and `β = 4` by simply observing three values of `1` and four values of `0`. This would give us `μ = 0.43` and `σ = 0.53`. We can then compare the beta distribution with `α = 3` and `β = 4` to a normal distribution with `μ = 0.43` and `σ = 0.53`, as shown in @fig-12-09.
+
+![Comparing the beta distribution to the normal distribution](img/12fig09.jpg){#fig-12-09
+fig-alt="The beta distribution is flatter than the normal distribution but extends his tails to both sides wider" width="70%"}
+
+> It’s clear that these distributions are quite different. We can see that for both distributions the center of mass appears in roughly the same place, but the bounds for the normal distribution extend way beyond the limits of our graph. This demonstrates a key point:
+
+::: {.callout-important}
+##### Beta or Normal Distribution?
+
+Only when you know nothing about the data other than its mean and variance is it safe to assume a normal distribution.  The following differences could help for a decision:
+
+- **Beta distribution**: The value we’re looking for must lie in the range 0 to 1. 
+- **Normal distribution** is defined from –∞ to ∞, which often includes values that cannot possibly exist.
+:::
+
+
+
+
+## Experiments
+
+### Replicate Figure 12-3, 12-4 and 12-5
+
+#### Figure 12-3 (Book, p.105)
+
+```{r}
+#| label: fig-norm-dist
+#| fig-cap: "Normal distribution with μ of 0 and σ of 1"
+#| attr-source: '#lst-fig-norm-dist lst-cap="Replicate Figure 12-3: Normal distribution with μ of 0 and σ of 1"'
+#| out.width: 70%
+#| fig.align: center
+ggplot2::ggplot(data.frame(x = c(-5, 5)), 
+                ggplot2::aes(x = x)) +
+    ggplot2::stat_function(fun = dnorm) +
+    ggplot2::theme_bw() +
+    ggplot2::labs(
+        title = "Normal distribution with a mean of 0 and a standard deviation of 1",
+        x = "Value",
+        y = "Density"
+    )
+
+```
+### Replicate Figure 12-4 and 12-5 (Book, p.106f.)
+
+```{r}
+#| label: fig-norm-dist1
+#| fig-cap: "Normal Distribution with μ = 0 and σ = 0.5"
+#| attr-source: '#lst-fig-norm-dist1 lst-cap="Replicate Figure 12-4: Normal distribution with μ of 0 and σ of 0.5"'
+
+p1 <- 
+    ggplot2::ggplot(data.frame(x = c(-5, 5)), 
+                    ggplot2::aes(x = x)) +
+        ggplot2::stat_function(fun = function(x) dnorm(x, 0, 0.5)) +
+        ggplot2::theme_bw() +
+        ggplot2::labs(
+            x = "Value",
+            y = "Density"
+        )
+```
+
+```{r}
+#| label: fig-norm-dist2
+#| fig-cap: "Normal distribution with μ of 0 and σ of 2"
+#| attr-source: '#lst-fig-norm-dist2 lst-cap="Replicate Figure 12-5: Normal distribution with μ of 0 and σ of 1"'
+
+p2 <- 
+    ggplot2::ggplot(data.frame(x = c(-5, 5)), 
+                    ggplot2::aes(x = x)) +
+        ggplot2::stat_function(fun = function(x) dnorm(x, 0, 2)) +
+        ggplot2::theme_bw() +
+        ggplot2::labs(
+            x = "Value",
+            y = "Density"
+        )
+```
+
+
+I am trying different approaches to display the two graphs side by side.
+
+The first one uses the package {**patchwork**}.
+
+```{r}
+#| label: fig-norm-dist-3
+#| fig-cap: "Normal Distributions with µ of 0; σ of 0.5 (left) and σ of 2 (right)"
+#| attr-source: '#lst-fig-norm-dist-3 lst-cap="Display Figure 12-4 and 12-5"'
+#| out.height: 4in
+#| out.width: 8in
+library(patchwork)
+p1 + p2
+```
+
+
+The second approach uses the Quarto [figure panels](https://quarto.org/docs/authoring/figures.html) with `{layout-ncol=2}`
+
+::: {layout-ncol=2}
+```{r}
+#| label: fig-norm-p1
+#| fig-cap: Normal Distribution μ = 0, σ = 0.5
+p1
+```
+
+```{r}
+#| label: fig-norm-p2
+#| fig-cap: Normal Distribution:μ = 0, σ = 2
+p2
+```
+
+:::

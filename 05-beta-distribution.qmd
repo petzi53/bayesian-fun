@@ -1,4 +1,4 @@
-# The Beta Distribution
+# The Beta Distribution {#sec-beta-distribution}
 
 The chapter is concerned with two topics:
 

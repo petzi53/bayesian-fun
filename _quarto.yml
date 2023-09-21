@@ -28,6 +28,7 @@ book:
     - part: "PART III: Parameter Estimation"
     - 10-parameter-estimation.qmd
     - 11-data-spread.qmd
+    - 12-normal-distribution.qmd
     - 95-references.qmd
 
 bibliography: references.bib
