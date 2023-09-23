@@ -69,6 +69,8 @@ By integrating over all values less than 18, we can calculate the probability th
 I am using 0, because this value is more intuitive for me.
 
 ```{r}
+#| label: integrating-0-to-18
+#| attr-source: '#lst-integrating-0-to-18 lst-cap="Integrating over all values less than 18 seconds"'
 integrate(function(x)
     dnorm(x, mean = 20.6, sd = 1.62), 0, 18)
 ```
@@ -122,9 +124,9 @@ Only when you know nothing about the data other than its mean and variance is it
 
 ## Experiments
 
-### Replicate Figure 12-3, 12-4 and 12-5
+### Replicate Figure 12-3
 
-#### Figure 12-3 (Book, p.105)
+**Figure 12-3 (Book, p.105), but here it is @fig-12-03.**
 
 ```{r}
 #| label: fig-norm-dist
@@ -143,7 +145,9 @@ ggplot2::ggplot(data.frame(x = c(-5, 5)),
     )
 
 ```
-### Replicate Figure 12-4 and 12-5 (Book, p.106f.)
+### Replicate Figure 12-4 & 12-5
+
+**Figure 12-4 and 12-5 (Book, p.106f.), here it is @fig-12-04 and @fig-12-05**
 
 ```{r}
 #| label: fig-norm-dist1
@@ -209,3 +213,156 @@ p2
 ```
 
 :::
+
+### Replicate Figure 12-6
+
+**Figure 12-6 (Book, p.108), here it is @fig-12-06.**
+
+```{r}
+#| label: fig-norm-dist-fuse
+#| fig-cap: "A normal distribution with μ = 20.6 and σ = 1.62"
+#| attr-source: '#lst-fig-norm-dist-fuse lst-cap="Replicate Figure 12-6: Normal distribution with μ = 20.6 and σ = 1.62"'
+#| out.width: 70%
+#| fig.align: center
+ggplot2::ggplot(data.frame(x = c(10, 30)), 
+                ggplot2::aes(x = x)) +
+    ggplot2::stat_function(fun = function(x) dnorm(x, mean = 20.6, sd = 1.62)) +
+    ggplot2::theme_bw() +
+    ggplot2::labs(
+        title = "Normal distribution with μ = 20.6 and σ = 1.62",
+        x = "Value",
+        y = "Density"
+    )
+
+```
+
+### Replicate Figure 12-7
+
+**Figure 12-7 (Book, p.109), here it is @fig-12-07.**
+
+I am going to use two different approaches: The first one is the one I have used myself already several times in other occasions. See for instance [Plot intervals of defined boundaries](https://bookdown.org/pbaumgartner/sr2-notes/03-sampling-the-imaginary.html#plot-interval-of-defined-boundaries) in Statistical Rethinking 2nd edition.)
+
+
+```{r}
+#| label: fig-norm-dist-area1
+#| fig-cap: "The area under the curve that we’re interested in"
+#| attr-source: '#lst-fig-norm-dist-area1 lst-cap="Area representing fuse length less than or equal to 18 seconds"'
+#| out.width: 70%
+#| fig.align: center
+
+fuse <- tibble::tibble(x = seq(0, 30, 0.01),
+                       y = dnorm(x, mean = 20.6, sd = 1.62))
+
+ggplot2::ggplot(fuse, ggplot2::aes(x = x, y = y)) +
+    ggplot2::geom_line() +
+    ggplot2::geom_area(data = fuse |>  
+                       dplyr::filter(x >= 0 & x <= 18),
+                       fill = "steelblue") +
+    ggplot2::theme_bw() +
+    ggplot2::labs(
+        title = "Replicate Figure 12-5 of this page:
+        Area representing fuse length less than or equal to 18 seconds",
+        x = "Value",
+        y = "Density"
+    ) 
+
+```
+
+At first I didn't succeed with the approach above because I used `data = fuse,` instead of `data = fuse |>`. I got a somewhat cryptical error message:
+
+> Error in UseMethod("filter") : 
+  no applicable method for 'filter' applied to an object of class "logical"
+
+As I could not found the error I consulted the internet search and learned about another approach with `ggplot2::stat_function()` from the article "Visualizing Sampling Distributions: Learn how to add areas under the curve in sampling distributions" by [ggplot2tutor.com](https://ggplot2tutor.com/tutorials/sampling_distributions):
+
+```{r}
+#| label: fig-norm-dist-area2
+#| fig-cap: "The area under the curve that we’re interested in"
+#| attr-source: '#lst-fig-norm-dist-area2 lst-cap="Area representing fuse length less than or equal to 18 seconds"'
+#| out.width: 70%
+#| fig.align: center
+
+ggplot2::ggplot(data.frame(x = c(0, 30)), ggplot2::aes(x)) +
+  ggplot2::stat_function(fun = function(x) dnorm(x, mean = 20.6, sd = 1.62),
+                geom = "line",
+                xlim = c(0, 30)) +
+  ggplot2::stat_function(fun = function(x) dnorm(x, mean = 20.6, sd = 1.62),
+                geom = "area",
+                fill = "steelblue",
+                xlim = c(0, 18)) +
+  ggplot2::xlim(0, 30) +
+  ggplot2::theme_bw() +
+  ggplot2::labs(
+        title = "Replicate Figure 12-5 of this page:
+        Area representing fuse length less than or equal to 18 seconds",
+        x = "Value",
+        y = "Density"
+    )
+```
+
+### Replicate Figure 12-8
+
+**Figure 12-8 (Book, p.111), here it is @fig-12-08.**
+
+```{r}
+#| label: fig-norm-dist-area68
+#| fig-cap: "Sixty-eight percent of the probability density (area under the curve) lies between one standard deviation of the mean in either direction."
+#| attr-source: '#lst-fig-norm-dist-area68 lst-cap="Highlight sixty-eight percent of the probability density"'
+#| out.width: 70%
+#| fig.align: center
+
+ggplot2::ggplot(data.frame(x = c(0, 30)), ggplot2::aes(x)) +
+  ggplot2::stat_function(fun = function(x) dnorm(x, mean = 20.6, sd = 1.62),
+                geom = "line",
+                xlim = c(0, 30)) +
+  ggplot2::stat_function(fun = function(x) dnorm(x, mean = 20.6, sd = 1.62),
+                geom = "area",
+                fill = "steelblue",
+                xlim = c(20.6 - 1.62, 20.6 + 1.62)) +
+  ggplot2::xlim(0, 30) +
+  ggplot2::theme_bw() +
+  ggplot2::labs(
+        title = "Replicate Figure 12-6 of this page:
+        Highlight sixty-eight percent of the probability density",
+        x = "Value",
+        y = "Density"
+    ) +
+  ggplot2::annotate(geom = "text",
+           x = 20.5, y = .15,
+           label = "68%",
+           color = "white")
+```
+
+### Replicate Figure 12-9
+
+Comparing normal with beta distribution with the following example data:
+
+- **Data**: observing three values of 1 and four values of 0
+- **Beta**: $\alpha = 3$ and $\beta = 4$ 
+- **Normal**: $n = 7$, $\mu = \frac{3}{7} = 0.43$, $\sigma = sd(c(1,1,1,0,0,0,0)) = 0.53$
+
+```{r}
+#| label: fig-norm-beta
+#| fig-cap: "Comparing the beta distribution to the normal distribution"
+#| attr-source: '#lst-fig-norm-beta lst-cap="Compare beta distribution with normal distribution"'
+#| out.width: 70%
+#| fig.align: center
+
+ggplot2::ggplot(data.frame(x = c(1,1,1,0,0,0,0)), ggplot2::aes(x)) +
+  ggplot2::stat_function(fun = function(x) dnorm(x, mean(x), sd(x)),
+                geom = "line",
+                ggplot2::aes(color = "Normal"),
+                xlim = c(0, 1)) +
+  ggplot2::stat_function(fun = function(x) dbeta(x, 3, 4),
+                geom = "line",
+                ggplot2::aes(color = "Beta"),
+                xlim = c(0, 1)) +
+  ggplot2::theme_bw() +
+  ggplot2::scale_colour_manual("Distribution:", values = c("red", "blue")) +
+  ggplot2::theme(legend.position = "top") +
+  ggplot2::labs(
+        x = "Probability",
+        y = "Density"
+    )
+```
+
