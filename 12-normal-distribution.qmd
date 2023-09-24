@@ -1,4 +1,4 @@
-# The Normla Distribution
+# The Normal Distribution
 
 ## Measuring Fuses for Dastardly Deeds
 
@@ -119,7 +119,150 @@ Only when you know nothing about the data other than its mean and variance is it
 - **Normal distribution** is defined from –∞ to ∞, which often includes values that cannot possibly exist.
 :::
 
+## Exercises
 
+Try answering the following questions to see how well you understand the normal distribution. The solutions can be found at https://nostarch.com/learnbayes/.
+
+### Exercise 12-1
+
+What is the probability of observing a value five sigma greater than the mean or more?
+
+```{r}
+#| label: exr-12-1
+#| attr-source: '#lst-exr-12-1 lst-cap="Probability of value greater than 5 sigma"'
+
+p <- integrate(dnorm, -5, 5)
+(1 - p[["value"]]) / 2
+```
+
+::: {.callout-warning}
+Although I got almost exact the same result, my solution is very different than in the "Answers to the Exercises" (p.242) of the book:
+
+```{r}
+#| label: exr-12-1-book-answer
+#| attr-source: '#lst-exr-12-1-book-answer lst-cap="Book solution for exercise 12-1"'
+
+integrate(function(x)
+    dnorm(x, mean = 0, sd = 1), 5, 100)
+```
+
+The rationale for my approach is the idea that it is known that `integrate(dnorm, -1.96, 1.96)` results in `r integrate(dnorm, -1.96, 1.96)[["value"]]`%. (I took this example from the [R help file](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/integrate).)
+
+The result is the probability that a value is between two standard deviations. Therefore the probability of 1 minus the result of the integration is the probability of values outside this integration. As the normal distribution is symmetric we got the value higher than twice the sd after dividing by 2.
+
+What applies for 2 standard deviations is also valid for other values of sigma.
+:::
+
+
+### Exercise 12-2
+
+A fever is any temperature greater than 100.4 degrees Fahrenheit. Given the following measurements, what is the probability that the patient has a fever?
+100.0, 99.8, 101.0, 100.5, 99.7
+
+I am going to use the `sd_fun()` function instead of the sample standard deviation.
+
+```{r}
+#| label: exr-12-2
+#| attr-source: '#lst-exr-12-2 lst-cap="Probability of fever with measurements of 100.0, 99.8, 101.0, 100.5, 99.7"'
+temp <-  c(100.0, 99.8, 101.0, 100.5, 99.7)
+integrate(function(x)
+    dnorm(x, mean(temp), sd_fun(temp)), 100.4, Inf)
+```
+
+
+::: {.callout-warning}
+My first try didn't succeed because I used `temp` instead `x` as the first parameter for the `dnorm()` function.
+
+```{r}
+#| label: exr-12-2-wrong
+#| attr-source: '#lst-exr-12-2-wrong lst-cap="Wrong integration by using the temp vector instead of x"'
+#| error: TRUE
+temp <-  c(100.0, 99.8, 101.0, 100.5, 99.7)
+
+integrate(function(x)
+    dnorm(temp, mean(temp), sd_fun(temp)), 100.4, Inf)
+```
+
+I used `Inf` as upper value for the integration and not $200$, but I go exactly the same result.
+
+:::
+
+### Exercise 12-3 {#sec-exr-12-3}
+
+Suppose in Chapter 11 we tried to measure the depth of a well by timing coin drops and got the following values: 2.5, 3, 3.5, 4, 2
+
+The distance an object falls can be calculated (in meters) with the following formula:
+
+$$distance = \frac{1}{2} \times G \times time^2$$
+
+where G is 9.8 m/s/s. What is the probability that the well is over 500 meters deep?
+
+```{r}
+#| label: exr-12-3
+#| attr-source: '#lst-exr-12-3 lst-cap="Probability that the well is over 500 meters deep: My solution"'
+
+t <-  c(2.5, 3, 3.5, 4, 2)
+s <-  t^2 * 0.5 * 9.8
+integrate(function(x)
+    dnorm(x, mean(s), sd_fun(s)), 500, Inf)
+```
+It is practically impossible that the well is over 500 meters deep.
+
+Let's check the result by a manual estimation: The longest fall is 4 seconds. $4^2$ seconds = 16 times 10 (=approx. G)  = 160, divided by 2 = 80 meter. Even the longest fall infers only a 80 meter deep well.
+
+::: {.callout-warning}
+Again the solution in the book takes a complete different approach. I have converted the measured fall times of seconds into distances in meter and then applied the `integrate()` function. The books solution took the more complex way to calculate the time it would need for 500 meter:
+
+$$
+\begin{align*}
+500 = \frac{1}{2} \times G \times time^2 \\
+time^2 = \frac{500}{\frac{1}{2} \times G} \\
+time = sqrt(\frac{500}{\frac{1}{2} \times G}) \\
+time = sqrt(\frac{500}{\frac{1}{2} G \times 9.8}) \\
+time = 10.10153
+\end{align*}
+$$
+
+```{r}
+#| label: exr-12-3-book
+#| attr-source: '#lst-exr-12-3-book lst-cap="Probability that the well is over 500 meters deep: Book solution"'
+
+t <-  c(2.5, 3, 3.5, 4, 2)
+integrate(function(x)
+    dnorm(x, mean(t), sd_fun(t)), 10.1, Inf)
+```
+
+Both result are almost zero but my calculation is much nearer zero than the solution of the book. I think that the difference arises from the very different values for the standard deviation. In my case it is `sd_fun(s)` = `r sd_fun(s)` meter and in the book solution it is `sd_fun(t)` = `r sd_fun(t)` seconds, e.g. a value much smaller.
+
+
+:::
+
+### Exercise 12-4
+
+What is the probability there is no well (i.e., the well is really 0 meters deep)? You’ll notice that probability is higher than you might expect, given your observation that there is a well. There are two good explanations for this probability being higher than it should. The first is that the normal distribution is a poor model for our measurements; the second is that, when making up numbers for an example, I chose values that you likely wouldn’t see in real life. Which is more likely to you?
+
+```{r}
+#| label: exr-12-4
+#| attr-source: '#lst-exr-12-4 lst-cap="Probability if there is no well"'
+
+t <-  c(2.5, 3, 3.5, 4, 2)
+integrate(function(x)
+    dnorm(x, mean(t), sd_fun(t)), -1, 0)
+```
+Normally the first idea is that the analyst has chosen a wrong model. But in this case I am sure that the normal distribution is a correct one. So it only remains that the data are not valid. And in fact I noticed it already in the beginning (starting with @sec-exr-12-3) that the measurement are too spread out from 2 to 4 seconds. Such a big difference should not occur in reality.
+
+::: {.callout-warning}
+I have to confess that I did not compute correctly: Instead to integrate between -1 and 0, I integrated from 0 to Inf. The result was a nonsensical probability of 99.99%, essentially saying: "Yes, there is a well, because the coins need time from 0 second to infinity to reach the bottom."
+
+```{r}
+#| label: exr-12-4-wrong
+#| attr-source: '#lst-exr-12-4-wrong lst-cap="Wrong computation results in nonsensical probability of 99,99%"'
+
+t <-  c(2.5, 3, 3.5, 4, 2)
+integrate(function(x)
+    dnorm(x, mean(t), sd_fun(t)), 0, Inf)
+```
+:::
 
 
 ## Experiments
