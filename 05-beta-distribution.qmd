@@ -121,7 +121,7 @@ There are two problems:
 Even though there are infinitely many possibilities here, we still need
 them all to sum to 1. This is where the beta distribution comes in.
 
-## Beta Distribution
+## Beta Distribution {#sec-beta-distribution2}
 
 Unlike the `r glossary("binomial distribution")`, which breaks up nicely
 into discrete values, the `r glossary("beta distribution")` represents a

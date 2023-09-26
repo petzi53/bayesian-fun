@@ -1,3 +1,7 @@
+---
+engine: knitr
+---
+
 # Introduction {.unnumbered}
 
 `r glossary("Frequentist statistics")` is founded on the idea that
@@ -6,4 +10,3 @@ probability represents the frequency with which something happens.
 with how probabilities represent how uncertain we are about a piece of
 information.
 
-2 + 2 = `r 2 + 2`

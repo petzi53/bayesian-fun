@@ -1,7 +1,3 @@
----
-engine: knitr
----
-
 # Bayesian Priors and Working with Probability Distributions
 
 ## C-3PO’s Asteroid Field Doubts
