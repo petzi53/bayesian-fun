@@ -2,7 +2,7 @@
 engine: knitr
 ---
 
-# Introduction to Averaging and Parameter Estimation
+# Introduction to Averaging and Parameter Estimation {#sec-chap-10}
 
 In this chapter the author explains and demonstrates how averaging of data works. This is not new territory for me, therefore I will skip the whole section and concentrate only on the exercises
 
