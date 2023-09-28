@@ -1,4 +1,4 @@
-# Bayesian Priors and Working with Probability Distributions
+# Bayesian Priors and Working with Probability Distributions {#sec-chap-09}
 
 ## C-3PO’s Asteroid Field Doubts
 
@@ -65,14 +65,18 @@ With our example:
 
 $$
 \begin{align*}
-Beta(?,?) = Beta(2 + 20000, 7400 + 1) \\
-Beta(20002,7401) = Beta(2 + 20000, 7400 + 1)
+Beta(?,?) = Beta(2 + 20000, 7440 + 1) \\
+Beta(20002,7441) = Beta(2 + 20000, 7440 + 1)
 \end{align*}
 $$
 
 ![Combining likelihood with prior gives the more intriguing posterior](img/09fig03.jpg){#fig-09-03
 fig-alt="Distribution of prior belief Beta(2 + 20000, 7400 + 1)"
 fig-align="center" width="70%"}
+
+::: {.callout-warning}
+This is a wrong figure on p.88 as the prior belief should be `Beta(2 + 20000, 7440 + 1)` instead of `Beta(2 + 20000, 7440 + 1)`. See also page 2 the [Errata file](https://nostarch.com/download/BayesianStatistics_errata_p6.pdf). But I did not change it here and in my @fig-repl-9-3 as it is not so important for the general argumentation. 
+:::
 
 The combined belief of C-3PO for the very low chances to live through the asteroid field and our prior belief of the exceptional skills of Han Solo accounts to a pretty good 73% chance of survival. 
 

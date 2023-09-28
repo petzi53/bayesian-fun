@@ -1,0 +1,7 @@
+---
+engine: knitr
+---
+
+# From Parameter Estimation to Hypothesis Testing: Building a Bayesian A/B Test
+
+

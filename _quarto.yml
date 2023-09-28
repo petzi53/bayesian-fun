@@ -30,7 +30,11 @@ book:
     - 11-data-spread.qmd
     - 12-normal-distribution.qmd
     - 13-pdf-cdf-quantile.qmd
+    - 14-prior-probabilities.qmd
     - 95-references.qmd
+
+    - part: "PART IV: Hypothesis Testing: The Heart of Statistics"
+    - 15-bayesian-a-b-test.qmd
 
 bibliography: references.bib
 
