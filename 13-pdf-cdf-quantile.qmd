@@ -1,4 +1,4 @@
-# Tools of Parameter Estimation: The PDF, CDF, and Quantile Function
+# Tools of Parameter Estimation: The PDF, CDF, and Quantile Function {#sec-chap-13}
 
 > This chapter will cover more on the
 > `r glossary("probability density function")` (PDF); introduce the
