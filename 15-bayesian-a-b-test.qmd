@@ -105,3 +105,150 @@ In my experiments I will use the `ggplot2::stat_ecdf()` function as demonstrated
 :::
 
 > Now we can see our results more clearly. There is really just a small, small chance that A is better, and even if it is better, it’s not going to be by much. We can also see that there’s about a 25 percent chance that variant B is a 50 percent or more improvement over A, and even a reasonable chance it could be more than double the conversion rate! Now, in choosing B over A, we can actually reason about our risk by saying, “The chance that B is 20 percent worse is roughly the same that it’s 100 percent better.” Sounds like a good bet to me, and a much better statement of our knowledge than, “There is a statistically significant difference between B and A.”
+
+## Wrapping Up
+
+In this chapter we saw how parameter estimation naturally extends to a form of hypothesis testing. 
+
+## Exercises
+
+Try answering the following questions to see how well you understand running A/B tests. The solutions can be found at https://nostarch.com/learnbayes/.
+
+### Exercise 15-1
+
+Suppose a director of marketing with many years of experience tells you he believes very strongly that the variant without images (B) won’t perform any differently than the original variant. How could you account for this in our model? Implement this change and see how your final conclusions change as well.
+
+### Exercises 15-2
+
+The lead designer sees your results and insists that there’s no way that variant B should perform better with no images. She feels that you should assume the conversion rate for variant B is closer to 20 percent than 30 percent. Implement a solution for this and again review the results of our analysis.
+
+### Exercises 15-3
+
+Assume that being 95 percent certain means that you’re more or less “convinced” of a hypothesis. Also assume that there’s no longer any limit to the number of emails you can send in your test. If the true conversion for A is 0.25 and for B is 0.3, explore how many samples it would take to convince the director of marketing that B was in fact superior. Explore the same for the lead designer. You can generate samples of conversions with the following snippet of R:
+
+```{r}
+true.rate <- 0.25
+number.of.samples <- 100
+results <- runif(number.of.samples) <= true.rate
+```
+
+## Experiments
+
+### Replicate Figure 15-1
+
+Hover the cursor over @fig-15-01 to compare both plots!
+
+```{r}
+#| label: fig-pb-15-1
+#| fig-cap: "Visualizing our prior probability distribution"
+#| attr-source: '#lst-fig-pb-15-1 lst-cap="Draw Beta(3,7) for our prior probability distribution"'
+#| out.width: 70%
+#| fig.align: center
+
+ggplot2::ggplot() +
+    ggplot2::xlim(0, 1) +
+    ggplot2::geom_function(fun = dbeta, args = list(shape1 = 3, shape2 = 7)) +
+    ggplot2::theme_bw() +
+    ggplot2::labs(
+        title = "Weak Prior Belief in Conversion Rate with Beta(3, 7)",
+        x = "Conversion Rate",
+        y = "Density"
+    )
+```
+
+::: {.callout-note}
+I learned here an essential simplification: Instead of providing a data frame with a grid approximation of many raster points --- as I have done all the previous chapters --- I just called the function with its parameters via `ggplot2::geom_function()`. But I have additonaly to add the range for the x-axis. See [Draw a function as a continuous curve](https://ggplot2.tidyverse.org/reference/geom_function.html).
+:::
+
+### Replicate Figure 15-2
+
+Hover the cursor over @fig-15-02 to compare both plots!
+
+```{r}
+#| label: fig-pb-15-2
+#| fig-cap: "Beta distributions for our estimates for both variants of our email"
+#| attr-source: '#lst-fig-pb-15-2 lst-cap="Show the estimates for each parameter side by side."'
+#| out.width: 70%
+#| fig.align: center
+
+ggplot2::ggplot() +
+    ggplot2::xlim(0, 0.5) +
+    ggplot2::geom_function(ggplot2::aes(color = "Variant A: Beta(39, 121)"),
+        fun = dbeta, args = list(shape1 = 39, shape2 = 121)) +
+        ggplot2::geom_function(ggplot2::aes(color = "Variant B: Beta(53, 107)"),
+        fun = dbeta, args = list(shape1 = 53, shape2 = 107)) +
+    ggplot2::theme_bw() +
+    ggplot2::scale_colour_manual("Distribution:", values = c("red", "blue")) + 
+    ggplot2::theme(legend.position = c(.2,.85), legend.direction = "vertical") + 
+    ggplot2::labs(
+        title = "Weak Prior Belief in Conversion Rate with Beta(3, 7)",
+        x = "Conversion Rate",
+        y = "Density"
+    )
+```
+
+### Replicate Figure 15-3
+
+Hover the cursor over @fig-15-03 to compare both plots!
+
+```{r}
+#| label: fig-pb-15-3
+#| fig-cap: "A histogram of possible improvements we might see"
+#| attr-source: '#lst-fig-pb-15-3 lst-cap="Distribution of the relative improvements from variant A to variant B"'
+#| out.width: 70%
+#| fig.align: center
+
+tibble::tibble(x = seq(1, 1e5, 1),
+               y = b.samples / a.samples) |> 
+    ggplot2::ggplot(ggplot2::aes(y)) +
+    ggplot2::geom_histogram(bins = 12, color = "black", fill = "grey") +
+    ggplot2::theme_bw() +
+    ggplot2::labs(
+        x = "b.samples / a.samples",
+        y = "Frequeny"
+    ) +
+    ggplot2::scale_x_continuous(breaks = scales::pretty_breaks(n = 10))
+
+```
+
+::: {.callout-note}
+Here I learned about the {**scales**} package (Main author is Hadley Wickham, the developer of {**ggplot2**})
+
+> Graphical scales map data to aesthetics, and provide methods for automatically determining breaks and labels for axes and legends.
+
+{**ggplot2**} imports {**scales**} but not its functions. So you must *always* --- not only in my case, where I did not use the `library()` directive --- write `scales::pretty_breaks()`.
+:::
+
+
+
+### Replicate Figure 15-4
+
+Hover the cursor over @fig-15-04 to compare both plots!
+
+```{r}
+#| label: fig-pb-15-4
+#| fig-cap: "A distribution of possible improvements we might see"
+#| attr-source: '#lst-fig-pb-15-4 lst-cap="Compute the empirical cumulative distribution function"'
+#| out.width: 70%
+#| fig.align: center
+
+tibble::tibble(x = seq(1, 1e5, 1),
+               y = b.samples / a.samples) |>
+    ggplot2::ggplot(ggplot2::aes(y)) +
+    ggplot2::stat_ecdf(geom = "step") +
+    ggplot2::geom_hline(yintercept = 0.25, color = "steelblue",
+                    linetype = "dashed") +
+    ggplot2::geom_hline(yintercept = 0.50, color = "orange",
+        linetype = "solid") +
+    ggplot2::geom_hline(yintercept = 0.75, color = "steelblue",
+            linetype = "dashed") +
+    ggplot2::theme_bw() +
+    ggplot2::labs(
+        title = "ggplot2::stat_ecdf(geom = 'step')",
+        x = "Improvement",
+        y = "Cumulative Probability"
+    ) +
+    ggplot2::scale_x_continuous(breaks = scales::pretty_breaks(n = 5)) +
+    ggplot2::scale_y_continuous(breaks = scales::pretty_breaks(n = 5))
+```
+
