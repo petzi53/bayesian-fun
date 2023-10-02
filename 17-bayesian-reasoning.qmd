@@ -1,0 +1,102 @@
+---
+engine: knitr
+---
+
+# Bayesian Reasoning in the Twilight Zone
+
+> In this chapter, we’ll use the Bayes factor and posterior odds to quantify how much evidence it should take to convince someone of a hypothesis.
+
+## Bayesian Reasoning in the Twilight Zone
+
+> Although Don and Pat are looking at the same data, they come to different conclusions. How can we explain why they reason differently when given the same evidence? We can use the Bayes factor to get deeper insight into how these two characters are thinking about the data.
+
+## Using the Bayes Factor to Understand the Mystic Seer
+
+> In the episode, we are faced with two competing hypotheses. Let’s call them H and  (or “not H”), since one hypothesis is the negation of the other:
+
+- $H$: The Mystic Seer truly can predict the future.
+- $\overline{H}$: The Mystic Seer just got lucky.
+
+> $P(D \mid H)$ is the probability of getting n correct answers in a row given that the Mystic Seer can predict the future. This likelihood will always be 1, no matter the number of questions asked. This is because, if the Mystic Seer is supernatural, it will always pick the right answer, whether it is asked one question or a thousand. Of course, this also means that if the Mystic Seer gets a single answer wrong, the probability for this hypothesis will drop to 0, because a psychic machine wouldn’t ever guess incorrectly. In that case, we might want to come up with a weaker hypothesis—for example, that the Mystic Seer is correct 90 percent of the time.
+
+## Measuring the Bayes Factor
+
+> As we did in the preceding chapter, we’ll temporarily ignore the ratio of our prior odds and concentrate on comparing the ratio of the likelihoods, or the Bayes factor. We’re assuming (for the time being) that the Mystic Seer has an equal chance of being supernatural as it does of being simply lucky.
+
+$$
+BF = \frac{P(D_{n} \mid H)}{P(D_{n} \mid \overline{H})} = \frac{1}{0.5^{n}}
+$$
+
+> It takes only four correct answers for him (Dan) to feel certain of it. On the other hand, it takes 14 questions for Pat to even start considering the possibility seriously, resulting in a Bayes factor of 16,384—way more evidence than she should need.
+
+$$
+\begin{align*}
+Dan = \frac{1}{0.5^{4}} = 16 \\ 
+Pat = \frac{1}{0.5^{14}} = 16384
+\end{align*}
+$$
+We can compare this result with the guidelines of @tbl-guidelines-odds.
+
+
+
+### Accounting for Prior Beliefs
+
+> Don and Pat are using extra information in their mental models, because each of them arrives at a conclusion of a different strength, and at very different times. This is fairly common in everyday reasoning: two people often respond differently to the exact same facts.
+
+> We can model this phenomenon by simply imagining the initial odds of $P(H)$ and $P(\overline{H})$ given no additional information. We call this the *prior odds ratio*.
+
+> Now let’s combine this prior belief with our data.
+
+- Suppose we believe there is just a chance of 1 to 1 million that the Mystic seer is supernatural
+- Suppose the Mystic Seer gets five answers correct.
+
+$$
+\begin{align*}
+\text{posterior odds} = O(H \mid D) = O(H) \times \frac{P(D \mid H)}{P(D \mid \overline{H})} \\
+\text{posterior odds} = \text{Prior Odds} \times \text{Bayes Factor} \\
+\text{posterior odds} = O(H \mid D) = \frac{1}{1,000,000} \times \frac{1}{0.5^5} = 0.000032
+\end{align*}
+$$
+
+> if we work backward, posterior odds can help us figure out how much evidence we’d need to make you believe H. At a posterior odds of 2, you’d just be starting to consider the supernatural hypothesis. So, if we solve for a posterior odds of greater than 2, we can determine what it would take to convince you.
+
+$$O(H \mid D) = \frac{1}{1,000,000} \times \frac{1}{0.5^n} > 2$$
+
+> If we solve for n to the nearest whole number, we get $n > 21$.
+
+> Thus, our prior odds can do much more than tell us how strongly we believe something given our background. It can also help us quantify exactly how much evidence we would need to be convinced of a hypothesis. The reverse is true, too; if, after 21 correct answers in a row, you find yourself believing strongly in H, you might want to weaken your prior odds.
+
+## Developing Our Own Psychic Powers
+
+> we’ll look at one more trick we can do with posterior odds: quantifying Don and Pat’s prior beliefs based on their reactions to the evidence.
+
+> it takes Don about seven correct questions to become essentially certain of the Mystic Seer’s supernatural abilities. We can estimate that at this point Don’s posterior odds are 150—the threshold for very strong beliefs, according to @tbl-guidelines-odds.
+
+$$150 = O(H) \times \frac{P(D_{7} \mid H)}{P(D_{7} \mid \overline{H})} = O(H) \times \frac{1}{0.5^{7}}$$
+Solving this for O(H) gives us: $O(H_{Don}) = 1.17$
+
+> What we’ve done here is remarkable. We’ve used our rules of probability to come up with a quantitative statement about what someone believes. In essence, we have become mind readers!
+
+## Wrapping Up
+
+> posterior odds is far more than just a way to test ideas. It provides us with a framework for thinking about reasoning under uncertainty.
+
+## Exercises
+Try answering the following questions to see how well you understand quantifying the amount of evidence it should take to convince someone of a hypothesis and estimating the strength of someone else’s prior belief. The solutions can be found at https://nostarch.com/learnbayes/.
+
+
+### Exercise 17-1
+
+Every time you and your friend get together to watch movies, you flip a coin to determine who gets to choose the movie. Your friend always picks heads, and every Friday for 10 weeks, the coin lands on heads. You develop a hypothesis that the coin has two heads sides, rather than both a heads side and a tails side. Set up a Bayes factor for the hypothesis that the coin is a trick coin over the hypothesis that the coin is fair. What does this ratio alone suggest about whether or not your friend is cheating you?
+
+### Exercise 17-2
+
+Now imagine three cases: that your friend is a bit of a prankster, that your friend is honest most of the time but can occasionally be sneaky, and that your friend is very trustworthy. In each case, estimate some prior odds ratios for your hypothesis and compute the posterior odds.
+
+### Exercise 17-3
+
+Suppose you trust this friend deeply. Make the prior odds of them cheating 1/10,000. How many times would the coin have to land on heads before you feel unsure about their innocence—say, a posterior odds of 1?
+
+### Exercsie 17-4
+
+Another friend of yours also hangs out with this same friend and, after only four weeks of the coin landing on heads, feels certain you’re both being cheated. This confidence implies a posterior odds of about 100. What value would you assign to this other friend’s prior belief that the first friend is a cheater?

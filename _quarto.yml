@@ -31,10 +31,13 @@ book:
     - 12-normal-distribution.qmd
     - 13-pdf-cdf-quantile.qmd
     - 14-prior-probabilities.qmd
-    - 95-references.qmd
 
     - part: "PART IV: Hypothesis Testing: The Heart of Statistics"
     - 15-bayesian-a-b-test.qmd
+    - 16-bayes-factor-posterior-odds.qmd
+    - 17-bayesian-reasoning.qmd
+
+    - 95-references.qmd
 
 bibliography: references.bib
 

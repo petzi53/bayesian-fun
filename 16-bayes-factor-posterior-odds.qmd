@@ -1,0 +1,72 @@
+---
+engine: knitr
+---
+
+# Introduction to the Bayes Factor and Posterior Odds: The Competition of Ideas
+
+> The `r glossary("Bayes factor")` is a formula that tests the plausibility of one hypothesis by comparing it to another. The result tells us how many times more likely one hypothesis is than the other.
+
+## Revisiting Bayes’ Theorem
+
+$$
+P(H \mid D) = \frac{{P(H)} \times  P(D \mid H) }{P(D)}
+$$ {#eq-bayes-theorem}
+
+- $P(H \mid D)$: `r glossary("Posterior Probability")`, which tells us how strongly we should believe in our hypothesis, given our data.
+- $P(H)$: `r glossary("Prior Probability")` or Prior Belief, the probability of our hypothesis prior to looking at the data.
+- $P(D \mid H)$: `r glossary("Likelihood")` of getting the existing data if our hypothesis were true.
+- $P(D)$ is the probability of the data observed independent of the hypothesis. We need P(D) in order to make sure that our posterior probability is correctly placed somewhere between 0 and 1.
+
+> $P(D)$ is … totally unnecessary if all we care about is comparing the relative strength of two different hypotheses. … For these reasons, we often use the *proportional form* of `r glossary("Bayes’ theorem")`.
+
+$$P(H \mid D) \propto P(H) \times P(D \mid H)$$ {#eq-bayes-prop}
+
+> the posterior probability of our hypothesis is proportional to the prior multiplied by the likelihood. We can use this to compare two hypotheses by examining the ratio of the prior belief multiplied by the likelihood for each hypothesis using the *ratio of posteriors* formula:
+
+$$\frac{P(H_{1}) \times P(D \mid H_{1})}{P(H_{2}) \times P(D \mid H_{2})}$$ {#eq-posterior-ratio}
+
+
+> if the ratio is 2, then $H_{1}$ explains the observed data twice as well as $H_{2}$, and if the ratio is $\frac{1}{2}$, then $H_{2}$ explains the data twice as well as $H_{1}$.
+
+## Building a Hypothesis Test Using the Ratio of Posteriors
+
+> The ratio of posteriors formula gives us the *posterior odds*, which allows us to test hypotheses or beliefs we have about data. 
+
+> To better understand the posterior odds, we’ll break down the ratio of posteriors formula into two parts: the likelihood ratio, or the Bayes factor, and the ratio of prior probabilities.
+
+### The Bayes Factor
+
+$$\frac{P(D \mid H_{1})}{P(D \mid H_{2})}$$ {#eq-bayes-factor}
+
+> What this ratio tells us is the likelihood of what we’ve seen given what *we* believe to be true compared to what *someone else* believes to be true.
+
+> The key here is that in Bayesian reasoning, we don’t worry about supporting our beliefs—we are focused on how well our beliefs support the data we observe. In the end, data can either confirm our ideas or lead us to change our minds.
+
+### Prior Odds
+
+> So far we have assumed that the prior probability of each hypothesis is the same. This is clearly not always the case: a hypothesis may explain the data well even if it is very unlikely. 
+
+$$\frac{P(H_{1})}{P(H_{2})}$$
+
+> This ratio compares the probability of two hypotheses before we look at the data. When used in relation to the Bayes factor, this ratio is called the prior odds in our $H_{1}$ and written as $O(H_{1})$. This representation is helpful because it lets us easily note how strongly (or weakly) we believe in the hypothesis we’re testing. When this number is greater than 1, it means the prior odds favor our hypothesis, and when it is a fraction less than 1, it means they’re against our hypothesis. For example, $O(H_{1}) = 100$$ means that, without any other information, we believe $H_{1}$ is 100 times more likely than the alternative hypothesis.
+
+### Posterior Odds
+
+$$\text{posterior odds} = O(H_{1})\frac{P(D \mid H_{1})}{P(D \mid H_{2})}$$ {#eq-posterior-odds}
+
+| Posterior odds | Strength of evidence                |
+|----------------|-------------------------------------|
+| 1 to 3         | Interesting, but nothing conclusive |
+| 3 to 20        | Looks like we’re on to something    |
+| 20 to 150      | Strong evidence in favor of $H_{1}$      |
+| > 150          | Overwhelming evidence               |
+
+: Guidelines for Evaluating Posterior Odds {#tbl-guidelines-odds}
+
+### Empty: Guidelines for Evaluating Posterior Odds
+
+### Empty: Self-Diagnosing Rare Diseases Online
+
+## Wrapping Up
+
+
