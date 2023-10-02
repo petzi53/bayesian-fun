@@ -1,4 +1,4 @@
-# From Parameter Estimation to Hypothesis Testing: Building a Bayesian A/B Test
+# From Parameter Estimation to Hypothesis Testing: Building a Bayesian A/B Test {#sec-chap-15}
 
 > In this chapter, we’ll test our belief that removing an image from an email will increase the [click-through rate](https://en.wikipedia.org/wiki/Click-through_rate) against the belief that removing it will hurt the click-through rate. … 
 >

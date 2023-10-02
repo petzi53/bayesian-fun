@@ -36,6 +36,8 @@ book:
     - 15-bayesian-a-b-test.qmd
     - 16-bayes-factor-posterior-odds.qmd
     - 17-bayesian-reasoning.qmd
+    - 18-data-convince.qmd
+    - 19-hypothesis-testing-parameter-estimation.qmd
 
     - 95-references.qmd
 

@@ -1,0 +1,16 @@
+{
+  "hash": "22b9d10622058ff35831de4c5ec8d476",
+  "result": {
+    "markdown": "---\nengine: knitr\n---\n\n\n# From Hypothesis Testing to Parameter Estimation\n\nIn @sec-chap-15, we learned how to turn a parameter estimation problem into a hypothesis test. In this chapter, we’re going to do the opposite: by looking at a virtually continuous range of possible hypotheses, we can use the Bayes factor and posterior odds (a hypothesis test) as a form of parameter estimation! This approach allows us to evaluate more than just two hypotheses and provides us with a simple framework for estimating any parameter.\n",
+    "supporting": [
+      "19-hypothesis-testing-parameter-estimation_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
