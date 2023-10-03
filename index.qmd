@@ -1,7 +1,7 @@
 # Preface {.unnumbered}
 
 ::: {.callout-note style="color: blue;"}
-#### This is work in progress: about 82%.
+#### This is work in progress: about 87%.
 :::
 
 This Quarto book collects my personal notes, trials and exercises of the
