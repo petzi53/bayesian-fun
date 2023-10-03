@@ -1,0 +1,14 @@
+{
+  "hash": "1a814d9d3690526cce2400cc2ca6f028",
+  "result": {
+    "markdown": "---\nengine: knitr\n---\n\n\n# A Quick Introduction to R\n\n<a class='glossary' title='Also known as frequentist interference, is a type of statistical approach where conclusions are made based on the frequency of an event. This statistical approach determines the probability of a long-term experiment, meaning the experiment is repeated under the same set of conditions to obtain an outcome. In frequentist statistics the population parameters are fixed, but unknown, and the data observed in experiments are random. (deepai.org)'>Frequentist statistics</a> is founded on the idea that\nprobability represents the frequency with which something happens.\n<a class='glossary' title='Also known as evidential probability, is the process of adding prior probability to a hypothesis and adjusting that probability as new information becomes available. Unlike traditional frequentist probability which only accounts for the previous frequency of an event to predicate and outcome, the Bayesian model begins with an initial set of subjective assumptions (prior probability) and adjusts them accordingly through trial and experimentation (posterior probability). Instead of only rejecting or failing to reject a null hypothesis, Bayesian probability allows someone to quantify how much confidence they should have in a particular result. (&lt;a href”https://deepai.org/machine-learning-glossary-and-terms/bayesian-probability&quot;&gt;deepai.org)'>Bayesian statistics</a>, on the other hand, is concerned\nwith how probabilities represent how uncertain we are about a piece of\ninformation.\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

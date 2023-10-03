@@ -1,0 +1,14 @@
+{
+  "hash": "028cf4326dece67bf614078ff17f0701",
+  "result": {
+    "markdown": "---\nengine: knitr\n---\n\n\n# Enough Calculus to Get By\n\nI am not very good in calculus. But:\n\n> Throughout the book we’ll be using R to handle all our calculus needs, …\n\nTherefore I will not go into details of this section. I might be interesting to replicate all the graphics but this would be only an exercise in R plotting (using in my case {**ggplot2**}) and not in <a class='glossary' title='Also known as evidential probability, is the process of adding prior probability to a hypothesis and adjusting that probability as new information becomes available. Unlike traditional frequentist probability which only accounts for the previous frequency of an event to predicate and outcome, the Bayesian model begins with an initial set of subjective assumptions (prior probability) and adjusts them accordingly through trial and experimentation (posterior probability). Instead of only rejecting or failing to reject a null hypothesis, Bayesian probability allows someone to quantify how much confidence they should have in a particular result. (&lt;a href”https://deepai.org/machine-learning-glossary-and-terms/bayesian-probability&quot;&gt;deepai.org)'>Bayesian statistics</a>. I will therefore skip this second appendix also.\n\n\n\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

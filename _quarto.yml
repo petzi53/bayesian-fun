@@ -41,6 +41,11 @@ book:
 
     - 95-references.qmd
 
+  appendices:
+    - 96-intro-to-r.qmd
+    - 97-calculus.qmd
+
+
 bibliography: references.bib
 
 format:
@@ -74,10 +79,15 @@ language:
    crossref-prp-title: "Callout"
    crossref-cnj-title: "Experiment"
 
+crossref:
+  appendix-title: "Appendix"
+  appendix-delim: ":"
+
 
 # https://github.com/quarto-dev/quarto-cli/blob/main/src/resources/language/_language.yml
-   callout-tip-title: "Resource"         # green
-   callout-note-title: "Note"            # blue
-   callout-warning-title: "Wach out!"    # orange
-   callout-important-title: "Important"  # red
-   callout-caution-title: "TODO"         # yellow
+
+callout-tip-title: "Resource"         # green
+callout-note-title: "Note"            # blue
+callout-warning-title: "Wach out!"    # orange
+callout-important-title: "Important"  # red
+callout-caution-title: "TODO"         # yellow

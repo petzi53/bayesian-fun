@@ -9,3 +9,62 @@ This Quarto book collects my personal notes, trials and exercises of the
 Probability With Star Wars, LEGO, and Rubber
 Ducks](https://nostarch.com/learnbayes) by
 Will Kurt [@kurt2019].
+
+## Content and Goals of this Book {.unnumbered}
+
+This book collects personal notes during reading of [Bayesian Statistics the Fun Way](https://nostarch.com/learnbayes) by Will Kurt. Additionally I am
+using [C: Answers to Exercises](https://nostarch.com/download/resources/Bayes_exercise_solutions_new.pdf)
+
+Each chapter of the book has three main parts:
+
+### Short summaries of the book content {.unnumbered}
+
+This summarizes my own highlights but gives also the necessary information for my section about "Experiments". Mostly I quote the text but without page references. Often I made minor editing (e.g., shorting the text) or put sometimes the content
+in my own wording. As I follow the text section by section reader can easily find the quoted passage. 
+
+Almost all of my text of this first part of the Quarto book are not
+mine, but is coming from the resources mentioned above. There are two exceptions:
+
+- Whenever necessary I include personal notes already in this part of the chapter. Most of the time it is combined with a cross reference to the third main part of the book: my experiments.
+- Sometimes there is also base R Code by the author provided. Whenever possible I convert this base R code by the author in {**tidyverse**} code.
+- I copied all figures into the text as a template for my own replication. 
+
+
+### Exercises {.unnumbered} 
+
+
+Again I quote the full question text and then try my own solution. If my solution is not correct or I cant find a solution I will note this in a personal callout and will correct the solution. If my solution is correct but with a different method I will also reflect on the result, but will not adapt or change my solution.
+
+
+### Experiments {.unnumbered}
+
+Here I am trying to make my own exercises. Most of the examples are replications of the book figures because the author has not included the R code. Additionally I cross referenced to the figure from the first part, the author section. If you hover over the cross reference link you will get the authors figure overlaid and can compare it with my replication.
+
+Writing my own R chunks I am using the tidy approach with the collection of the {**tidyverse**} packages, especially with {**ggplot2**} for the figures. But instead of using the `library()` command I always mention the used packages explicitly. Whenever I used another packages I called the function with the package name in front with the syntax `<package name>::<function name>()`, like `ggplot2::gplot()`. This is tedious work but it helps me to learn & remember which command "belongs" to which package. Only exception is the {**patchwork**} package, as I do not know how to call commands like `p1 + p2` with the package name.
+
+In graphics I use not only caption for figures but also captions for the R code. There is no easy standardized way to use code listings with captions and to evaluate the code at the same time, but I [found a workaround](https://github.com/quarto-dev/quarto-cli/issues/1580#issuecomment-1552673825) with the following structure of code options in the code chunk:
+
+```
+#| label: fig-name
+#| fig-cap: "fig-title"
+#| attr-source: '#lst-fig-name lst-cap="list-title"'
+```
+
+
+This code generates a warning because at the moment the `=` symbol is not allowed in RStudio when running a R chunks interactively in a Quarto document. [See issue 13326](https://github.com/rstudio/rstudio/issues/13326). Although I got a warning the code does what I want: It gives the figure and the code listing a heading and evaluates the code at the same time.
+
+
+::: callout-warning
+###### Warning
+
+I wrote this book as a text for others to read because that forces me to
+be become explicit and explain all my learning outcomes more carefully.
+Please keep in mind that this text is not written by an expert but by a
+learner. In spite of replicating most of the content it may contain many
+mistakes. All these misapprehensions and errors are my responsibility.
+
+In any case I am the only responsible person for this text, especially if I have used code from
+the resources wrongly or misunderstood a quoted text passage.
+
+:::
+

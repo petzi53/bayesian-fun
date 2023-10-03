@@ -1,8 +1,4 @@
----
-engine: knitr
----
-
-# From Hypothesis Testing to Parameter Estimation
+# From Hypothesis Testing to Parameter Estimation {#sec-chap-19}
 
 In @sec-chap-15, we learned how to turn a parameter estimation problem into a hypothesis test. In this chapter, we’re going to do the opposite: by looking at a virtually continuous range of possible hypotheses, we can use the Bayes factor and posterior odds (a hypothesis test) as a form of parameter estimation! This approach allows us to evaluate more than just two hypotheses and provides us with a simple framework for estimating any parameter.
 

@@ -1,0 +1,14 @@
+---
+engine: knitr
+---
+
+# Enough Calculus to Get By
+
+I am not very good in calculus. But:
+
+> Throughout the book we’ll be using R to handle all our calculus needs, …
+
+Therefore I will not go into details of this section. I might be interesting to replicate all the graphics but this would be only an exercise in R plotting (using in my case {**ggplot2**}) and not in `r glossary("Bayesian statistics")`. I will therefore skip this second appendix also.
+
+
+
