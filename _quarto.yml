@@ -78,6 +78,7 @@ execute:
 language:
    crossref-prp-title: "Callout"
    crossref-cnj-title: "Experiment"
+   crossref-lem-title: "Solution"
 
 crossref:
   appendix-title: "Appendix"

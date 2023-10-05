@@ -29,6 +29,14 @@ mine, but is coming from the resources mentioned above. There are two exceptions
 - Sometimes there is also base R Code by the author provided. Whenever possible I convert this base R code by the author in {**tidyverse**} code.
 - I copied all figures into the text as a template for my own replication. 
 
+::: {.callout-important}
+Although I have quoted many passages from the original as highlights for me to remember, this Quarto ebook is not meant to stand alone. My summaries are driven by my personal interests and my huge gaps in my statistical knowledge and especially in Bayesian statistics. My notes are therefore in no way a substitute for Will Kurt's book [Bayesian Statistics the Fun Way: Understanding Statistics and Probability With Star Wars, LEGO, and Rubber Ducks](https://nostarch.com/learnbayes) by
+Will Kurt [@kurt2019]. Please buy the book so that you can embed my notes appropriately in the general argumentaion of the author.
+:::
+
+
+
+
 
 ### Exercises {.unnumbered} 
 

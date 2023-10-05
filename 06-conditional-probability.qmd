@@ -141,8 +141,11 @@ There is nothing actually specific to our case of color blindness in the precedi
 #### Bayes’ Theorem (Variation 1)
 
 $$
-P(A \mid B) = \frac{P(B) \times P(B) \mid A)}{P(B)} = (\text{Bayes Theorem})\\
-P(male \mid \text{color blind}) = \frac{P(male) \times P(\text{color blind} \mid male)} {P(\text{color blind})} (= \text{Color Blind Example})
+\begin{align*}
+P(A \mid B) = \frac{P(B) \times P(B) \mid A)}{P(B)} = (\text{Bayes Theorem}) \\
+(\text{And now the application with the Color Blind Example}) \\
+P(male \mid \text{color blind}) = \frac{P(male) \times P(\text{color blind} \mid male)} {P(\text{color blind})} 
+\end{align*}
 $$ {#eq-bayes-rule-1}
 
 :::

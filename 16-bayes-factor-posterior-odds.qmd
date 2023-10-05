@@ -69,4 +69,85 @@ $$\text{posterior odds} = O(H_{1})\frac{P(D \mid H_{1})}{P(D \mid H_{2})}$$ {#eq
 
 ## Wrapping Up
 
+> In this chapter, you learned how to use the Bayes factor and posterior odds to compare two hypotheses.
+
+
+## Exercises
+
+Try answering the following questions to see how well you understand the Bayes factor and posterior odds. The solutions can be found at https://nostarch.com/learnbayes/.
+
+### Exercise 16-1
+
+Returning to the dice problem, assume that your friend made a mistake and suddenly realized that there were, in fact, two loaded dice and only one fair die. How does this change the prior, and therefore the posterior odds, for our problem? Are you more willing to believe that the die being rolled is the loaded die?
+
+Let's recapitulate: 
+
+> Suppose your friend has a bag with three six-sided dice in it, and one die is weighted so that it lands on 6 half the time. The other two are traditional dice whose probability of rolling a 6 is ⅙. Your friend pulls out a die and rolls 10 times, with the following results: $6, 1, 3, 6, 4, 5, 6, 1, 2, 6$
+
+::: {#def-bayes-factor}
+##### Bayes Factor
+$$\frac{P(D \mid H_{1})}{P(D \mid H_{2})}$$
+:::
+
+It turned out that $H_{1}$ --- the loaded dice --- explain the data 3.77 times better than the fair dice with $H_{2}$.
+
+> However, this is true only if $H_{1}$ and $H_{2}$ are both just as likely to be true in the first place. 
+
+But we know now for this exercise that there are two loaded dice in the bag and only one fair die, which means that each hypothesis was not equally likely. Based on the distribution of the dice in the bag, we know that these are the prior probabilities for each hypothesis:
+
+$$P(H_{1} = \frac{2}{3}); P(H_{2} = \frac{1}{3})$$
+> From these, we can calculate the prior odds for $H_{1}$:
+
+$$\text{prior odds} = O(H_{1}) = \frac{P(H_{1})}{P(H_{2})} = \frac{\frac{2}{3}}{\frac{1}{3}} = \frac{6}{3} = 2$$
+
+> With our prior odds for H1, we can now compute our full posterior odds:
+
+$$\text{posterior odds} = O(H_{1}) = \frac{P(D \mid H_{1})}{P(D \mid H_{2})} = 2 \times 3.77 = 7.54$$
+
+
+***
+::: {#lem-solution-16-1}
+Yes, I am now more willing to believe that the die being rolled is the loaded die!
+:::
+***
+
+### Exercise 16-2
+
+Returning to the rare diseases example, suppose you go to the doctor, and after having your ears cleaned you notice that your symptoms persist. Even worse, you have a new symptom: vertigo. The doctor proposes another possible explanation, labyrinthitis, which is a viral infection of the inner ear in which 98 percent of cases involve vertigo. However, hearing loss and tinnitus are less common in this disease; hearing loss occurs only 30 percent of the time, and tinnitus occurs only 28 percent of the time. Vertigo is also a possible symptom of vestibular schwannoma, but occurs in only 49 percent of cases. In the general population, 35 people per million contract labyrinthitis annually. What is the posterior odds when you compare the hypothesis that you have labyrinthitis against the hypothesis that you have vestibular schwannoma?
+
+
+**Labyrinthitis**:
+
+$$P(D \mid H_{1}) = 0.98 (\text{vertigo}) \times 0.30 (\text{hearing loss}) \times 0.28 (\text{tinnitus}) = 0.082$$
+
+
+**Vestibular schwannoma**
+
+$$P(D \mid H_{2}) = 0.49 (\text{vertigo}) \times 0.94 (\text{hearing loss}) \times 0.89 (\text{tinnitus}) = 0.41$$
+
+
+
+
+**Bayes factor**:
+
+$$\frac{P(D \mid H_{1})}{P(D \mid H_{2})} = \frac{0.08}{0.48} = 0.17$$
+
+**Including prior odds**:
+
+$$\text{prior odds} = O(H_{1}) = \frac{P(H_{1})}{P(H_{2})} = \frac{\frac{35}{1,000,000}}{\frac{11}{1,000,000}} = \frac{35}{11} = 3.18$$
+Based on prior information alone, a given person is about only about 3 times more likely to have labyrinthitis than vestibular schwannoma. This is a very scary result. But let's compute the full posterior odds to see if the situation gets better:
+
+$$\text{prior odds} = O(H_{1}) = \frac{P(H_{1})}{P(H_{2})} = \frac{35}{11} \times 6 = 19,09$$
+
+***
+::: {#lem-solution-16-2}
+The probability of having labyrinthitis is 19 times higher than vestibular schwannoma.
+:::
+***
+
+::: {.callout-warning}
+Will Kurt has another result because he is calculating the labyrinthitis against the earwax impaction!
+:::
+
+
 
