@@ -1,66 +1,191 @@
+---
+engine: knitr
+---
+
 # Preface {.unnumbered}
 
 ::: {.callout-note style="color: blue;"}
-#### This is work in progress: about 87%.
+#### This is work in progress: about 95%.
 :::
 
 This Quarto book collects my personal notes, trials and exercises of the
 [Bayesian Statistics the Fun Way: Understanding Statistics and
 Probability With Star Wars, LEGO, and Rubber
-Ducks](https://nostarch.com/learnbayes) by
-Will Kurt [@kurt2019].
+Ducks](https://nostarch.com/learnbayes) by Will Kurt [@kurt2019].
+
+## About My Motivation for this Quarto Book {#sec-book-motivation}
+
+I am not an expert in statistics. During my study in sociology back in
+1970er I had only rudimentary learned about
+`r glossary("frequentist statistics")`. There weren't computer only via
+time-sharing and keypunching for card-to-tape converter available. This
+was painstaking and not motivating because it had not much practical
+values. 10 years later I worked sometimes with SPSS but used --- as many
+of my colleagues --- the "statistics all" option without much
+understanding. It was no fun and so I dedicated most of my time to
+theoretical work and later sometimes to qualitative social research via
+[grounded theory](https://en.wikipedia.org/wiki/Grounded_theory).
+
+Only when I heard 2015 about R and began to exerpiment with it, I
+started my self-directed education in statistics again. Still I was not
+so intrigued by Null Hypothesis Statistical Testing (NHST) but more from
+Data Science. I noticed the problems with p-values and was therefore
+fascinated with [Introduction to the New
+Statistics](https://thenewstatistics.com/itns/) by Geoff Cumming &
+Robert Calin-Jageman [@cumming2017]. Instead of concentrating on
+p-values the book teaches the importance of
+`r glossary("confidence interval","confidence intervals")`, (CIs). But
+at that time I came across some discussion about
+`r glossary("Bayesian statistics")`. I read [The Theory That Would Not
+Die](https://www.jstor.org/stable/j.ctt1np76s): How Bayes' Rule Cracked
+the Enigma Code, Hunted Down Russian Submarines, and Emerged Triumphant
+From Two Centuries of Controversy by Sharon Bertsch McGrayne
+[@mcgrayne2011] but didn't understand at that time how Bayesian
+statistics works.
+
+The real game changer for me then was [Statistical
+Rethinking](https://www.routledge.com/Statistical-Rethinking-A-Bayesian-Course-with-Examples-in-R-and-STAN/McElreath/p/book/9780367139919)
+by Richard McElreath [@mcelreath2020]. I immediately started [my first
+Quarto book](https://bookdown.org/pbaumgartner/sr2-notes/) with notes
+about the book and the companion bookdown website [*Statistical
+rethinking* with brms, ggplot2, and the tidyverse: Second
+edition](https://bookdown.org/content/4857/) by A Solomon Kurz. But
+unfortunately after four chapters I noticed that I am lacking basic
+knowledge and looked around for other books on Bayesian statistics that
+are easier to digest for me. I tried A Student's Guide to Bayesian
+Statistics by Ben Lambert [@lambert2018], but I stopped reading it after
+chapter eight. I has to much theory for me and I was missing the
+opportunity trying my own hands out with R.
+
+So finally I came around to Will Kurt's book. I understand that the
+modern simulation methods like MCMC are not in the focus of the book and
+also the usage of R code is distributed very sparsely in the book. But I
+learned (and understood) many Bayesian concepts and could all the
+graphics in the book --- where the R code is missing --- replicate with
+{**ggplot2**} [@ggplot2] in tidyverse [@tidyverse] style. The book was
+at the time (September/October 2023) a perfect match for my rudimentary
+knowledge. I have now more trust to continue with Statistical Rethinking
+or --- as a possible alternative --- to start with a new Quarto book on
+[Doing Bayesian Data Analysis: A Tutorial With R, JAGS, and
+Stan](https://sites.google.com/site/doingbayesiandataanalysis/)
+[@kruschke2014] which I have already read and (I believe) mostly
+understood.
+
+Another motivation to write a Quarto book was to learn how to use
+[Quarto](https://quarto.org/). I already wrote some books with bookdown
+[@bookdown] but Quarto was relatively new for me. This book was
+therefore a good occasion to learn and experiment with the functionality
+of Quarto.
 
 ## Content and Goals of this Book {.unnumbered}
 
-This book collects personal notes during reading of [Bayesian Statistics the Fun Way](https://nostarch.com/learnbayes) by Will Kurt. Additionally I am
-using [C: Answers to Exercises](https://nostarch.com/download/resources/Bayes_exercise_solutions_new.pdf)
+This book collects personal notes during reading of [Bayesian Statistics
+the Fun Way](https://nostarch.com/learnbayes) by Will Kurt. Additionally
+I am using [C: Answers to
+Exercises](https://nostarch.com/download/resources/Bayes_exercise_solutions_new.pdf)
 
 Each chapter of the book has three main parts:
 
 ### Short summaries of the book content {.unnumbered}
 
-This summarizes my own highlights but gives also the necessary information for my section about "Experiments". Mostly I quote the text but without page references. Often I made minor editing (e.g., shorting the text) or put sometimes the content
-in my own wording. As I follow the text section by section reader can easily find the quoted passage. 
+This summarizes my own highlights but gives also the necessary
+information for my section about "Experiments". Mostly I quote the text
+but without page references. Often I made minor editing (e.g., shorting
+the text) or put sometimes the content in my own wording. As I follow
+the text section by section reader can easily find the quoted passage.
 
 Almost all of my text of this first part of the Quarto book are not
-mine, but is coming from the resources mentioned above. There are two exceptions:
+mine, but is coming from the resources mentioned above. There are two
+exceptions:
 
-- Whenever necessary I include personal notes already in this part of the chapter. Most of the time it is combined with a cross reference to the third main part of the book: my experiments.
-- Sometimes there is also base R Code by the author provided. Whenever possible I convert this base R code by the author in {**tidyverse**} code.
-- I copied all figures into the text as a template for my own replication. 
+-   Whenever necessary I include personal notes already in this part of
+    the chapter. Most of the time it is combined with a cross reference
+    to the third main part of the book: my experiments.
+-   Sometimes there is also base R Code by the author provided. Whenever
+    possible I convert this base R code by the author in {**tidyverse**}
+    code.
+-   I copied all figures into the text as a template for my own
+    replication.
 
-::: {.callout-important}
-Although I have quoted many passages from the original as highlights for me to remember, this Quarto ebook is not meant to stand alone. My summaries are driven by my personal interests and my huge gaps in my statistical knowledge and especially in Bayesian statistics. My notes are therefore in no way a substitute for Will Kurt's book [Bayesian Statistics the Fun Way: Understanding Statistics and Probability With Star Wars, LEGO, and Rubber Ducks](https://nostarch.com/learnbayes) by
-Will Kurt [@kurt2019]. Please buy the book so that you can embed my notes appropriately in the general argumentaion of the author.
+::: callout-important
+Although I have quoted many passages from the original as highlights for
+me to remember, this Quarto ebook is not meant to stand alone. My
+summaries are driven by my personal interests and my huge gaps in my
+statistical knowledge and especially in Bayesian statistics. My notes
+are therefore in no way a substitute for Will Kurt's book [Bayesian
+Statistics the Fun Way: Understanding Statistics and Probability With
+Star Wars, LEGO, and Rubber Ducks](https://nostarch.com/learnbayes) by
+Will Kurt [@kurt2019]. Please buy the book so that you can embed my
+notes appropriately in the general argumentation of the author.
 :::
 
+### Exercises {.unnumbered}
 
-
-
-
-### Exercises {.unnumbered} 
-
-
-Again I quote the full question text and then try my own solution. If my solution is not correct or I cant find a solution I will note this in a personal callout and will correct the solution. If my solution is correct but with a different method I will also reflect on the result, but will not adapt or change my solution.
-
+Again I quote the full question text and then try my own solution. If my
+solution is not correct or I cant find a solution I will note this in a
+personal callout and will correct the solution. If my solution is
+correct but with a different method I will also reflect on the result,
+but will not adapt or change my solution.
 
 ### Experiments {.unnumbered}
 
-Here I am trying to make my own exercises. Most of the examples are replications of the book figures because the author has not included the R code. Additionally I cross referenced to the figure from the first part, the author section. If you hover over the cross reference link you will get the authors figure overlaid and can compare it with my replication.
+Here I am trying to make my own exercises. Most of the examples are
+replications of the book figures because the author has not included the
+R code. Additionally I cross referenced to the figure from the first
+part, the author section. If you hover over the cross reference link you
+will get the authors figure overlaid and can compare it with my
+replication.
 
-Writing my own R chunks I am using the tidy approach with the collection of the {**tidyverse**} packages, especially with {**ggplot2**} for the figures. But instead of using the `library()` command I always mention the used packages explicitly. Whenever I used another packages I called the function with the package name in front with the syntax `<package name>::<function name>()`, like `ggplot2::gplot()`. This is tedious work but it helps me to learn & remember which command "belongs" to which package. Only exception is the {**patchwork**} package, as I do not know how to call commands like `p1 + p2` with the package name.
+Writing my own R chunks I am using the tidy approach with the collection
+of the {**tidyverse**} packages, especially with {**ggplot2**} for the
+figures. But instead of using the `library()` command I always mention
+the used packages explicitly. Whenever I used another packages I called
+the function with the package name in front with the syntax
+`<package name>::<function name>()`, like `ggplot2::gplot()`. This is
+tedious work but it helps me to learn & remember which command "belongs"
+to which package. Only exception is the {**patchwork**} package, as I do
+not know how to call commands like `p1 + p2` with the package name.
 
-In graphics I use not only caption for figures but also captions for the R code. There is no easy standardized way to use code listings with captions and to evaluate the code at the same time, but I [found a workaround](https://github.com/quarto-dev/quarto-cli/issues/1580#issuecomment-1552673825) with the following structure of code options in the code chunk:
+In graphics I use not only caption for figures but also captions for the
+R code. There is no easy standardized way to use code listings with
+captions and to evaluate the code at the same time, but I [found a
+workaround](https://github.com/quarto-dev/quarto-cli/issues/1580#issuecomment-1552673825)
+with the following structure of code options in the code chunk:
 
-```
+```         
 #| label: fig-name
 #| fig-cap: "fig-title"
 #| attr-source: '#lst-fig-name lst-cap="list-title"'
 ```
 
+This code generates a warning because at the moment the `=` symbol is
+not allowed in RStudio when running a R chunks interactively in a Quarto
+document. [See issue
+13326](https://github.com/rstudio/rstudio/issues/13326). Although I got
+a warning the code does what I want: It gives the figure and the code
+listing a heading and evaluates the code at the same time.
 
-This code generates a warning because at the moment the `=` symbol is not allowed in RStudio when running a R chunks interactively in a Quarto document. [See issue 13326](https://github.com/rstudio/rstudio/issues/13326). Although I got a warning the code does what I want: It gives the figure and the code listing a heading and evaluates the code at the same time.
+## Glossary
 
+I started a glossary using the
+{[**glossary**](https://cran.r-project.org/web/packages/glossary/index.html)}
+package by Lisa DeBruine [@glossary]. A glossary entry is visualized
+with a double underline. Every chapter has a section where the text of
+all glossary entries of the chapter are displayed. When you hover with
+the mouse over the link it opens a pop-up window with the glossary text.
+You can see example in the section about my motivation for this ebook
+(See @sec-book-motivation).
+
+I am using this glossary for all my other Quarto books but it is till
+work in progress. Please keep in mind that I collected the definition at
+various places and be attentive because there is no guarantee that the
+entry is appropriate and correct. I have added the sources where I got
+the content for the glossary entry.
+
+## Session Info
+
+Every chapter ends with a session information printed with the
+`sessionInfo()` function.
 
 ::: callout-warning
 ###### Warning
@@ -71,8 +196,7 @@ Please keep in mind that this text is not written by an expert but by a
 learner. In spite of replicating most of the content it may contain many
 mistakes. All these misapprehensions and errors are my responsibility.
 
-In any case I am the only responsible person for this text, especially if I have used code from
-the resources wrongly or misunderstood a quoted text passage.
-
+In any case I am the only responsible person for this text, especially
+if I have used code from the resources wrongly or misunderstood a quoted
+text passage.
 :::
-

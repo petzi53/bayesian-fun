@@ -41,20 +41,50 @@ engine: knitr
 
 ## Exercises
 
-Exercises
-Try answering the following questions to see how well you understand how to deal with extreme cases in Bayesian reasoning. The solutions can be found at https://nostarch.com/learnbayes/.
+> Try answering the following questions to see how well you understand how to deal with extreme cases in Bayesian reasoning. The solutions can be found at https://nostarch.com/learnbayes/.
 
 
 ### Exercise 18-1
 
-When two hypotheses explain the data equally well, one way to change our minds is to see if we can attack the prior probability. What are some factors that might increase your prior belief in your friend’s psychic powers?
+> When two hypotheses explain the data equally well, one way to change our minds is to see if we can attack the prior probability. What are some factors that might increase your prior belief in your friend’s psychic powers?
+
+***
+::: {#lem-solution-18-1}
+
+I would change the rules for my friend to demonstrate his/her psychic power to me. For instance: 
+- Instead of tossing his coin I want it to do with a coin of my own.
+- Instead of tossing the coin on a table I will catch the coin in the air. (I read that then it is much more difficult to control the coin.)
+- Or I will ask him other things like what figure I am thinking about, etc.
+
+:::
+***
 
 ### Exercise 18-2
 
-An experiment claims that when people hear the word Florida, they think of the elderly and this has an impact on their walking speed. To test this, we have two groups of 15 students walk across a room; one group hears the word Florida and one does not. Assume $H_{1}$ = the groups don’t move at different speeds, and $H_{2}$ = the Florida group is slower because of hearing the word Florida. Also assume the Bayes factor from @eq-bayes-factor:
+> An experiment claims that when people hear the word Florida, they think of the elderly and this has an impact on their walking speed. To test this, we have two groups of 15 students walk across a room; one group hears the word Florida and one does not. Assume $H_{1}$ = the groups don’t move at different speeds, and $H_{2}$ = the Florida group is slower because of hearing the word Florida. Also assume the Bayes factor from @eq-bayes-factor:
 
-$$\frac{P(D \mid H_{1})}{P(D \mid H_{2})}$$
+$$BF = \frac{P(D \mid H_{1})}{P(D \mid H_{2})}$$
 
-The experiment shows that $H_{2}$ has a Bayes factor of 19. Suppose someone is unconvinced by this experiment because $H_{2}$ had a lower prior odds. What prior odds would explain someone being unconvinced and what would the BF need to be to bring the posterior odds to 50 for this unconvinced person?
+> The experiment shows that $H_{2}$ has a Bayes factor of 19. Suppose someone is unconvinced by this experiment because $H_{2}$ had a lower prior odds. What prior odds would explain someone being unconvinced and what would the BF need to be to bring the posterior odds to 50 for this unconvinced person?
 
-Now suppose the prior odds do not change the skeptic’s mind. Think of an alternate $H_{3}$ that explains the observation that the Florida group is slower. Remember if $H_{2}$ and $H_{3}$ both explain the data equally well, only prior odds in favor of $H_{3}$ would lead someone to claim $H_{3}$ is true over $H_{2}$, so we need to rethink the experiment so that these odds are decreased. Come up with an experiment that could change the prior odds in $H_{3}$ over $H_{2}$
+::::: {.callout-warning}
+This time my answer of 25 to 50 was completely wrong. I calculated wrongly the unconvincing prior odds between 1 to 3 taking erroneously values of @tbl-guidelines-odds and did not take into account to equalize the fraction $\frac{1}{19}$
+
+***
+::: {#lem-solution-18-2a}
+
+$$50 = \frac{1}{19} \times x = 50 \times 19 = 950$$
+:::
+***
+:::::
+
+> Now suppose the prior odds do not change the skeptic’s mind. Think of an alternate $H_{3}$ that explains the observation that the Florida group is slower. Remember if $H_{2}$ and $H_{3}$ both explain the data equally well, only prior odds in favor of $H_{3}$ would lead someone to claim $H_{3}$ is true over $H_{2}$, so we need to rethink the experiment so that these odds are decreased. Come up with an experiment that could change the prior odds in $H_{3}$ over $H_{2}$
+
+***
+::: {#lem-solution-18-2b}
+
+The majority of the Florida group members might be older (adult students) and therefore walking slower. Or they have some handicapped people in it, so that the average of the walking speed of the whole group is reduced.
+
+The books solution was shorter people walking more slowly.
+:::
+***

@@ -74,11 +74,11 @@ $$\text{posterior odds} = O(H_{1})\frac{P(D \mid H_{1})}{P(D \mid H_{2})}$$ {#eq
 
 ## Exercises
 
-Try answering the following questions to see how well you understand the Bayes factor and posterior odds. The solutions can be found at https://nostarch.com/learnbayes/.
+> Try answering the following questions to see how well you understand the Bayes factor and posterior odds. The solutions can be found at https://nostarch.com/learnbayes/.
 
 ### Exercise 16-1
 
-Returning to the dice problem, assume that your friend made a mistake and suddenly realized that there were, in fact, two loaded dice and only one fair die. How does this change the prior, and therefore the posterior odds, for our problem? Are you more willing to believe that the die being rolled is the loaded die?
+> Returning to the dice problem, assume that your friend made a mistake and suddenly realized that there were, in fact, two loaded dice and only one fair die. How does this change the prior, and therefore the posterior odds, for our problem? Are you more willing to believe that the die being rolled is the loaded die?
 
 Let's recapitulate: 
 
@@ -113,7 +113,7 @@ Yes, I am now more willing to believe that the die being rolled is the loaded di
 
 ### Exercise 16-2
 
-Returning to the rare diseases example, suppose you go to the doctor, and after having your ears cleaned you notice that your symptoms persist. Even worse, you have a new symptom: vertigo. The doctor proposes another possible explanation, labyrinthitis, which is a viral infection of the inner ear in which 98 percent of cases involve vertigo. However, hearing loss and tinnitus are less common in this disease; hearing loss occurs only 30 percent of the time, and tinnitus occurs only 28 percent of the time. Vertigo is also a possible symptom of vestibular schwannoma, but occurs in only 49 percent of cases. In the general population, 35 people per million contract labyrinthitis annually. What is the posterior odds when you compare the hypothesis that you have labyrinthitis against the hypothesis that you have vestibular schwannoma?
+> Returning to the rare diseases example, suppose you go to the doctor, and after having your ears cleaned you notice that your symptoms persist. Even worse, you have a new symptom: vertigo. The doctor proposes another possible explanation, labyrinthitis, which is a viral infection of the inner ear in which 98 percent of cases involve vertigo. However, hearing loss and tinnitus are less common in this disease; hearing loss occurs only 30 percent of the time, and tinnitus occurs only 28 percent of the time. Vertigo is also a possible symptom of vestibular schwannoma, but occurs in only 49 percent of cases. In the general population, 35 people per million contract labyrinthitis annually. What is the posterior odds when you compare the hypothesis that you have labyrinthitis against the hypothesis that you have vestibular schwannoma?
 
 
 **Labyrinthitis**:
@@ -135,7 +135,7 @@ $$\frac{P(D \mid H_{1})}{P(D \mid H_{2})} = \frac{0.08}{0.48} = 0.17$$
 **Including prior odds**:
 
 $$\text{prior odds} = O(H_{1}) = \frac{P(H_{1})}{P(H_{2})} = \frac{\frac{35}{1,000,000}}{\frac{11}{1,000,000}} = \frac{35}{11} = 3.18$$
-Based on prior information alone, a given person is about only about 3 times more likely to have labyrinthitis than vestibular schwannoma. This is a very scary result. But let's compute the full posterior odds to see if the situation gets better:
+Based on prior information alone, a given person is about only about 3 times more likely to have labyrinthitis than vestibular schwannoma. Now let's compute the full posterior odds to see if the situation gets better:
 
 $$\text{prior odds} = O(H_{1}) = \frac{P(H_{1})}{P(H_{2})} = \frac{35}{11} \times 6 = 19,09$$
 

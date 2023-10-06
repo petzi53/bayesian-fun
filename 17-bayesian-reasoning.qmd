@@ -82,21 +82,87 @@ Solving this for O(H) gives us: $O(H_{Don}) = 1.17$
 > posterior odds is far more than just a way to test ideas. It provides us with a framework for thinking about reasoning under uncertainty.
 
 ## Exercises
-Try answering the following questions to see how well you understand quantifying the amount of evidence it should take to convince someone of a hypothesis and estimating the strength of someone else’s prior belief. The solutions can be found at https://nostarch.com/learnbayes/.
+
+> Try answering the following questions to see how well you understand quantifying the amount of evidence it should take to convince someone of a hypothesis and estimating the strength of someone else’s prior belief. The solutions can be found at https://nostarch.com/learnbayes/.
 
 
 ### Exercise 17-1
 
-Every time you and your friend get together to watch movies, you flip a coin to determine who gets to choose the movie. Your friend always picks heads, and every Friday for 10 weeks, the coin lands on heads. You develop a hypothesis that the coin has two heads sides, rather than both a heads side and a tails side. Set up a Bayes factor for the hypothesis that the coin is a trick coin over the hypothesis that the coin is fair. What does this ratio alone suggest about whether or not your friend is cheating you?
+> Every time you and your friend get together to watch movies, you flip a coin to determine who gets to choose the movie. Your friend always picks heads, and every Friday for 10 weeks, the coin lands on heads. You develop a hypothesis that the coin has two heads sides, rather than both a heads side and a tails side. Set up a Bayes factor for the hypothesis that the coin is a trick coin over the hypothesis that the coin is fair. What does this ratio alone suggest about whether or not your friend is cheating you?
+
+$$
+BF = \frac{P(D_{n} \mid H)}{P(D_{n} \mid \overline{H})} = \frac{1}{0.5^{n}} = \frac{1}{0.5^{10}} = \frac{1}{0.0009765625} = 1024
+$$
+
+***
+::: {#lem-solution-17-1}
+According to the Guidelines for Evaluating Bayes Factors (@tbl-guidelines-odds) there is overwhelming evidence that my friend is cheating me with a coin that has two heads.
+:::
+***
+
 
 ### Exercise 17-2
 
-Now imagine three cases: that your friend is a bit of a prankster, that your friend is honest most of the time but can occasionally be sneaky, and that your friend is very trustworthy. In each case, estimate some prior odds ratios for your hypothesis and compute the posterior odds.
+> Now imagine three cases: that your friend is a bit of a prankster, that your friend is honest most of the time but can occasionally be sneaky, and that your friend is very trustworthy. In each case, estimate some prior odds ratios for your hypothesis and compute the posterior odds.
+
+**Prankster**:
+
+$$O(H \mid D) = \frac{1,000}{1} \times \frac{1}{0.5^{20}} = 1024000$$
+
+**Sneaky**:
+
+$$O(H \mid D) = \frac{10}{1} \times \frac{1}{0.5^{20}} = 10240$$
+
+**Trustworthy**:
+
+$$O(H \mid D) = \frac{1}{10,000} \times \frac{1}{0.5^{20}} = 0.1024$$
+
+::::: {.callout-warning}
+I chose different priors than in the book solutions. But the general outcome is more or less the same.
+
+::: {#lem-solution-17-2}
+- For "prankster" I chose 1,000 --- the book solution is 10.
+- For "sneaky" I chose 10 --- the book solution is $\frac{1}{4}$.
+- For "trustworthy" I chose $\frac{1}{10,000}$$ --- the book solution is in this case the same!
+:::
+:::::
+
 
 ### Exercise 17-3
 
-Suppose you trust this friend deeply. Make the prior odds of them cheating 1/10,000. How many times would the coin have to land on heads before you feel unsure about their innocence—say, a posterior odds of 1?
+> Suppose you trust this friend deeply. Make the prior odds of them cheating 1/10,000. How many times would the coin have to land on heads before you feel unsure about their innocence—say, a posterior odds of 1?
+
+$$
+\begin{align*}
+O(H \mid D) = \frac{1}{10,000} \times \frac{1}{0.5^{n}} = 1 \\
+O(H \mid D) = \frac{1}{10,000} = 1 \times 0.5^{n}
+\end{align*}
+$$
+
+::::: {.callout-warning}
+
+::: {#lem-solution-17-3}
+
+- My solution was 13 because I took a value near to 1 but still over one. 
+- So 14 is the value more appropriate, because then I definitely must start to feel unsure about my friend’s innocence.
+:::
+
+:::::
 
 ### Exercsie 17-4
 
-Another friend of yours also hangs out with this same friend and, after only four weeks of the coin landing on heads, feels certain you’re both being cheated. This confidence implies a posterior odds of about 100. What value would you assign to this other friend’s prior belief that the first friend is a cheater?
+> Another friend of yours also hangs out with this same friend and, after only four weeks of the coin landing on heads, feels certain you’re both being cheated. This confidence implies a posterior odds of about 100. What value would you assign to this other friend’s prior belief that the first friend is a cheater?
+
+$$
+\begin{align*}
+100 = O(H \mid D) \times \frac{P(D_{28} \mid H)}{P(D_{4} \mid \overline{H})} = O(H \mid D) \times \frac{1}{0.5^{4}} = 16\\
+100 = 6.25 \times 16
+\end{align*}
+$$
+
+
+***
+::: {#lem-solution-17-4}
+I would assign a prior belief of 6.25 that the friend is a cheater.
+:::
+***
